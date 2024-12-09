@@ -1,0 +1,44 @@
+Getting Started:
+Open Git Bash and run following commands:
+ -> cd <your desired location for repo>
+ -> git clone https://github.com/Scott-will/Capstone.git
+ -> Hopefully everything shows up
+
+Creating A Pull Request:
+make sure you are on master branch if not run command
+-> git checkout master
+
+Pull latest changes:
+-> git pull
+
+create a branch:
+
+git checkout -b new_branch_name // make branch useful name so changes are clear
+
+make your changes.
+
+Once changes are done
+
+-> git status //to see changes to file
+-> git add <file path> //add files you changed
+-> git commit -m "some changes" //string is some stupid description of what was changed
+
+Next merge latest changes from master branch to avoid merge conflicts:
+
+-> git checkout master
+-> git pull
+-> git checkout <your_branch>
+-> git merge master
+
+Finally if no merge conflicts:
+->  git push --set-upstream origin <your_branch>
+-> git push
+
+Go to github and create pull request:
+
+go to the repo, click on branches and make a PR for your branch
+
+Some useful commands:
+
+git status to see latest changes
+git diff shows line by line changes (dont recommend just download source tree or some similair software)
