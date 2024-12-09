@@ -12,8 +12,7 @@ import SwiftUI
 struct MyApp: App {
     var body: some Scene {
         WindowGroup {
-            MainView()
+            MainView() // The entry point of the app
         }
     }
 }
-
