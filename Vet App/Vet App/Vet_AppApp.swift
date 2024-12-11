@@ -10,6 +10,9 @@ import SwiftUI
 
 @main
 struct MyApp: App {
+    init(){
+        DIContainer.registerAllServices()
+    }
     var body: some Scene {
         WindowGroup {
             MainView()
