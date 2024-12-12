@@ -34,9 +34,11 @@ struct SignUpView: View {
                     .foregroundColor(.white)
                     .cornerRadius(8)
                     
-                    Button("Next") {
-                        viewModel.getUsers()
-                        // Next action
+                    Button("Submit") {
+                        let user = User(id: -1, name: viewModel.name, surName: viewModel.surName, petName: viewModel.petName, email: viewModel.email)
+                        viewModel.insertUser(user : user)
+                        
+                        //go to home screen
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)

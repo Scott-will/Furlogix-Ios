@@ -19,9 +19,9 @@ class UserViewModel : ObservableObject{
         self.userRepository = userRepository
     }
     
-    public func insertUser(){
-        var result = self.userRepository.insertUsers(user: User(id: 1, name: "test", surName: "test", petName: "", email: ""))
-        if(result == -1){
+    public func insertUser(user : User){
+        var result = self.userRepository.insertUsers(user: user)
+        if(result == nil){
             //log here
         }
     }

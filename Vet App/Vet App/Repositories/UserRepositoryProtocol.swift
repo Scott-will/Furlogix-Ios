@@ -7,5 +7,5 @@
 protocol UserRepositoryProtocol{
     func getUsers() -> [User]
     
-    func insertUsers(user : User) -> Int
+    func insertUsers(user : User) -> Int64?
 }

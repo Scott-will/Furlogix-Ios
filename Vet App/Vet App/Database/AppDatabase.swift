@@ -12,7 +12,7 @@ class UsersStore{
     static let DIR_USERS_DB = "UsersDB"
     static let STORE_NAME = "users.sqlite3"
     private var db: Connection? = nil
-    private let tasks = Table("users")
+    private let users = Table("users")
 
     private let id = Expression<Int64>("id")
     private let name = Expression<String>("name")
@@ -49,7 +49,7 @@ class UsersStore{
              return
          }
          do {
-             try database.run(tasks.create { table in
+             try database.run(users.create { table in
                  table.column(id, primaryKey: .autoincrement)
                  table.column(name)
                  table.column(surName)
@@ -61,4 +61,34 @@ class UsersStore{
              print(error)
          }
      }
+    
+    func insert(user : User) -> Int64? {
+        guard let database = db else { return nil }
+
+        let insert = users.insert(self.name <- user.name,
+                                  self.surName <- user.surName,
+                                  self.email <- user.email,
+                                  self.petName <- user.petName)
+        do {
+            let rowID = try database.run(insert)
+            return rowID
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
+    func getAllUsers() -> [User] {
+        var usersList: [User] = []
+        guard let database = db else { return [] }
+
+        do {
+            for user in try database.prepare(self.users) {
+                usersList.append(User(id: user[id], name: user[name], surName: user[surName], petName: user[petName], email: user[email]))
+            }
+        } catch {
+            print(error)
+        }
+        return usersList
+    }
  }

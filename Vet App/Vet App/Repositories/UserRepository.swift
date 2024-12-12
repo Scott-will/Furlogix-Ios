@@ -7,11 +7,11 @@
 class UserRepository : UserRepositoryProtocol{
     
     func getUsers() -> [User] {
-        return [User(id: 1, name: "String", surName: "String", petName: "String", email: "String")]
+        return UsersStore.shared.getAllUsers()
     }
     
-    func insertUsers(user: User) -> Int {
-        return 1
+    func insertUsers(user: User) -> Int64? {
+        return UsersStore.shared.insert(user: user)
     }
     
 }

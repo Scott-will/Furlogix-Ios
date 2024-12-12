@@ -6,7 +6,7 @@
 //
 
 struct User : Decodable{ 
-    let id : UInt8
+    let id : Int64
     let name : String
     let surName : String
     let petName : String
