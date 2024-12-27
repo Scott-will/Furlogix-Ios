@@ -1,11 +1,11 @@
-//
-//  ContentView.swift
+////  ContentView.swift
 //  New Vet App
 //
 //  Created by Daylyn Kokeza on 2024-12-08.
 //
 
 import SwiftUI
+import CoreData
 
 // Main Entry Screen
 struct MainView: View {
@@ -47,7 +47,8 @@ struct MainView: View {
 struct LoginView: View {
     @State private var email: String = ""
     @State private var password: String = ""
-    
+    @State private var navigateToMain: Bool = false
+
     var body: some View {
         VStack(spacing: 20) {
             Text("Login")
@@ -59,6 +60,8 @@ struct LoginView: View {
             
             Button(action: {
                 // Add login action here
+                // Simulate successful login
+                navigateToMain = true
             }) {
                 Text("Login")
                     .font(.headline)
@@ -82,6 +85,9 @@ struct LoginView: View {
         }
         .padding()
         .navigationTitle("Login")
+        .navigationDestination(isPresented: $navigateToMain) {
+            ContentMain() // Redirect to Main Screen
+        }
     }
 }
 
@@ -98,7 +104,7 @@ struct SignUpView: View {
     @State private var errorMessage: String = ""
     @FocusState private var focusedField: Field?
     
-    @State private var navigateToAddPet = false  // State to control navigation
+    @State private var navigateToMain: Bool = false // Add state for navigation
     
     enum Field: Hashable {
         case vetID, firstName, lastName, email, password, phoneNumber, address
@@ -154,7 +160,7 @@ struct SignUpView: View {
                             showError = true
                             errorMessage = "Please fill in all required fields."
                         } else {
-                            navigateToAddPet = true  // Set state to navigate to Add Pet screen
+                            navigateToMain = true // Navigate to main screen
                         }
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
@@ -168,10 +174,8 @@ struct SignUpView: View {
                 }
             }
             .padding()
-            
-            // New NavigationDestination to ContentView when navigateToAddPet is true
-            .navigationDestination(isPresented: $navigateToAddPet) {
-                ContentView() // Navigate to Add Pet screen
+            .navigationDestination(isPresented: $navigateToMain) {
+                ContentMain() // Redirect to Main Screen
             }
         }
         .navigationTitle("Sign-up")
@@ -190,7 +194,8 @@ struct ContentView: View {
     @State private var errorMessage: String = ""
     
     @FocusState private var focusedField: Field?
-    
+    @State private var navigateToMain: Bool = false // Add state for navigation
+
     enum Field: Hashable {
         case petName, weight, coatColor, medicalConditions, breed
     }
@@ -239,6 +244,7 @@ struct ContentView: View {
                             errorMessage = "Please fill in all required fields."
                         } else {
                             // Perform save action here
+                            navigateToMain = true // Navigate to main screen
                         }
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
@@ -252,6 +258,9 @@ struct ContentView: View {
                 }
             }
             .padding()
+            .navigationDestination(isPresented: $navigateToMain) {
+                ContentMain() // Redirect to Main Screen
+            }
         }
         .navigationTitle("Pet Information")
     }
@@ -281,5 +290,91 @@ struct CustomTextField: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MainView()
+    }
+}
+
+struct ContentMain: View {
+    var body: some View {
+        VStack {
+           
+            // Header Section
+            HStack {
+                Text("Settings")
+                    .font(.system(size: 19, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+                Spacer()
+                Text("Profile")
+                    .font(.system(size: 30, weight: .bold))
+                    .foregroundColor(.white)
+                Spacer()
+                Text("Log out")
+                    .font(.system(size: 19, weight: .semibold))
+                    .foregroundColor(.white)
+                    .padding(.horizontal)
+            }
+            .padding()
+            .background(Color.blue)
+
+            Spacer()
+
+            // Main Section
+            VStack {
+                Button(action: {
+                    print("Add data")
+                }) {
+                    Text("Add data")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 150, height: 50)
+                        .background(Color.green)
+                        .cornerRadius(10)
+                }
+
+                Button(action: {
+                    print("Submit Report")
+                }) {
+                    Text("Submit Report")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(.white)
+                        .frame(width: 150, height: 50)
+                        .background(Color.red)
+                        .cornerRadius(10)
+                        .padding(.top, 20)
+                }
+            }
+
+            Spacer()
+
+            // Footer Section
+            HStack {
+                Button(action: {
+                    print("Reports")
+                }) {
+                    Text("Reports")
+                        .font(.system(size: 22, weight: .heavy))
+                        .foregroundColor(Color(red: 0.57, green: 0.82, blue: 0.93))
+                }
+
+                Spacer()
+
+                Button(action: {
+                    print("Pets")
+                }) {
+                    Text("Pets")
+                        .font(.system(size: 22, weight: .bold))
+                        .foregroundColor(Color(red: 0.57, green: 0.82, blue: 0.93))
+                }
+            }
+            .padding()
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.gray.opacity(0.1))
+    }
+}
+
+struct ContentMain_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
     }
 }
