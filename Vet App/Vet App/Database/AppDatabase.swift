@@ -6,6 +6,7 @@
 //
 
 import SQLite
+import Foundation
 
 class UsersStore{
     
@@ -14,11 +15,11 @@ class UsersStore{
     private var db: Connection? = nil
     private let users = Table("users")
 
-    private let id = Expression<Int64>("id")
-    private let name = Expression<String>("name")
-    private let surName = Expression<String>("surName")
-    private let petName = Expression<String>("petName")
-    private let email = Expression<String>("email")
+    private let id = SQLite.Expression<Int64>("id")
+    private let name = SQLite.Expression<String>("name")
+    private let surName = SQLite.Expression<String>("surName")
+    private let petName = SQLite.Expression<String>("petName")
+    private let email = SQLite.Expression<String>("email")
 
     static let shared = UsersStore()
 
