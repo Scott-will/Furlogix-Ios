@@ -12,7 +12,7 @@ struct SignUpView: View {
 
     @ObservedObject var userViewModel = UserViewModel()
     @ObservedObject var petViewModel = PetViewModel()
-    
+    @State private var navigateToDashboard = false
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -25,7 +25,7 @@ struct SignUpView: View {
                 CustomTextField(placeholder: "Last Name", text: $userViewModel.surName)
                 CustomTextField(placeholder: "Email", text: $userViewModel.email)
                 CustomTextField(placeholder: "Pet Name", text: $userViewModel.petName)
-                CustomTextField(placeholder: "Pet type", text: $userViewModel.petName)
+                CustomTextField(placeholder: "Pet type", text: $userViewModel.petType)
                 
                 HStack(spacing: 20) {
                     Button("Cancel") {
@@ -42,14 +42,15 @@ struct SignUpView: View {
                         let userId = userViewModel.insertUser(user : user)
                         let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId)
                         petViewModel.InsertPet(pet: pet)
-                        NavigationLink(destination: Dashbaord(), label: {
-                            EmptyView()
-                        })
+                        navigateToDashboard = true
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
+                    NavigationLink(destination: DashbaordView(), isActive: $navigateToDashboard) {
+                        EmptyView()
+                    }
                 }
                 .padding(.top, 20)
             }

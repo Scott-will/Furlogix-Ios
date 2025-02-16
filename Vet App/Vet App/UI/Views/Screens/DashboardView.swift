@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct Dashbaord : View{
+struct DashbaordView : View{
     @StateObject var viewModel = PetViewModel()
 
         var body: some View {
