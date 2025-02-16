@@ -24,6 +24,7 @@ final class DIContainer {
     //register all services for dependency injection
     static func registerAllServices(){
         shared.register(type: UserRepositoryProtocol.self, service: UserRepository())
+        shared.register(type: PetRepositoryProtocol.self, service: PetRepository())
         
     }
 }

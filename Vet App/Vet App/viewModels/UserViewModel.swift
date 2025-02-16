@@ -20,7 +20,7 @@ class UserViewModel : ObservableObject{
     }
     
     public func insertUser(user : User){
-        var result = self.userRepository.insertUsers(user: user)
+        let result = self.userRepository.insertUsers(user: user)
         if(result == nil){
             //log here
         }

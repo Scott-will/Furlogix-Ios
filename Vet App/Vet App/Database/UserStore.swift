@@ -21,9 +21,15 @@ class UsersStore{
     private let petName = SQLite.Expression<String>("petName")
     private let email = SQLite.Expression<String>("email")
 
-    static let shared = UsersStore()
+    static let instance = UsersStore()
 
-     
+    public func GetTable() -> Table{
+        return users
+    }
+    
+    public func GetPrimaryKeyColumn() -> SQLite.Expression<Int64>{
+        return id;
+    }
 
     private init() {
         if let docDir = FileManager.default.urls(for: .documentDirectory, in:
@@ -34,6 +40,7 @@ class UsersStore{
                 try FileManager.default.createDirectory(atPath: dirPath.path, withIntermediateDirectories: true, attributes: nil)
                 let dbPath = dirPath.appendingPathComponent(Self.STORE_NAME).path
                 db = try Connection(dbPath)
+                try db?.run("PRAGMA foreign_keys = ON")
                 createTable()
                 print("SQLiteDataStore init successfully at: \(dbPath) ")
              } catch {
