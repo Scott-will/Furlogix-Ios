@@ -10,7 +10,8 @@ import SwiftUI
 
 struct SignUpView: View {
 
-    @ObservedObject var viewModel = UserViewModel()
+    @ObservedObject var userViewModel = UserViewModel()
+    @ObservedObject var petViewModel = PetViewModel()
     
     var body: some View {
         ScrollView {
@@ -20,10 +21,11 @@ struct SignUpView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 20)
                 
-                CustomTextField(placeholder: "First Name", text: $viewModel.name)
-                CustomTextField(placeholder: "Last Name", text: $viewModel.surName)
-                CustomTextField(placeholder: "Email", text: $viewModel.email)
-                CustomTextField(placeholder: "Pet Name", text: $viewModel.petName)
+                CustomTextField(placeholder: "First Name", text: $userViewModel.name)
+                CustomTextField(placeholder: "Last Name", text: $userViewModel.surName)
+                CustomTextField(placeholder: "Email", text: $userViewModel.email)
+                CustomTextField(placeholder: "Pet Name", text: $userViewModel.petName)
+                CustomTextField(placeholder: "Pet type", text: $userViewModel.petName)
                 
                 HStack(spacing: 20) {
                     Button("Cancel") {
@@ -35,10 +37,11 @@ struct SignUpView: View {
                     .cornerRadius(8)
                     
                     Button("Submit") {
-                        let user = User(id: -1, name: viewModel.name, surName: viewModel.surName, petName: viewModel.petName, email: viewModel.email)
-                        viewModel.insertUser(user : user)
+                        let user = User(id: -1, name: userViewModel.name, surName: userViewModel.surName, email: userViewModel.email)
+                        let userId = userViewModel.insertUser(user : user)
+                        let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId)
+                        petViewModel.InsertPet(pet: pet)
                         
-                        //go to home screen
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)

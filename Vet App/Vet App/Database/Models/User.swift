@@ -9,6 +9,5 @@ struct User : Decodable{
     let id : Int64
     let name : String
     let surName : String
-    let petName : String
     let email : String
 }

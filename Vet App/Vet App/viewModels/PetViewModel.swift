@@ -15,6 +15,11 @@ class PetViewModel : ObservableObject{
         self.petRepository = petRepository
     }
     public func LoadPetsForUser(user_id : Int64){
-        self.pets = petRepository.GetPetsForUser(id: user_id)
+        self.pets = self.petRepository.GetPetsForUser(id: user_id)
+    }
+    
+    public func InsertPet(pet : Pet) -> Int64{
+        let petId = self.petRepository.InsertPet(pet: pet)
+        return petId ?? -1
     }
 }

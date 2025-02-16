@@ -11,6 +11,7 @@ class UserViewModel : ObservableObject{
     @Published var surName: String = ""
     @Published var email: String = ""
     @Published var petName: String = ""
+    @Published var petType: String = ""
     
     @Published var users : [User] = []
     private let userRepository : UserRepositoryProtocol
@@ -19,11 +20,9 @@ class UserViewModel : ObservableObject{
         self.userRepository = userRepository
     }
     
-    public func insertUser(user : User){
+    public func insertUser(user : User) -> Int64{
         let result = self.userRepository.insertUsers(user: user)
-        if(result == nil){
-            //log here
-        }
+        return result ?? -1
     }
     
     public func getUsers(){

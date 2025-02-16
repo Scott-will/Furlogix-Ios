@@ -62,7 +62,6 @@ class UsersStore{
                  table.column(name)
                  table.column(surName)
                  table.column(email)
-                 table.column(petName)
              })
              print("Table Created...")
          } catch {
@@ -75,8 +74,7 @@ class UsersStore{
 
         let insert = users.insert(self.name <- user.name,
                                   self.surName <- user.surName,
-                                  self.email <- user.email,
-                                  self.petName <- user.petName)
+                                  self.email <- user.email)
         do {
             let rowID = try database.run(insert)
             return rowID
@@ -92,7 +90,7 @@ class UsersStore{
 
         do {
             for user in try database.prepare(self.users) {
-                usersList.append(User(id: user[id], name: user[name], surName: user[surName], petName: user[petName], email: user[email]))
+                usersList.append(User(id: user[id], name: user[name], surName: user[surName], email: user[email]))
             }
         } catch {
             print(error)
