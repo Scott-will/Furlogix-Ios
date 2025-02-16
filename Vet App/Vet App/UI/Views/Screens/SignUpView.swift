@@ -14,7 +14,7 @@ struct SignUpView: View {
     @ObservedObject var petViewModel = PetViewModel()
     
     var body: some View {
-        ScrollView {
+        NavigationView {
             VStack(spacing: 20) {
                 Text("Create Account")
                     .font(.largeTitle)
@@ -38,10 +38,13 @@ struct SignUpView: View {
                     
                     Button("Submit") {
                         let user = User(id: -1, name: userViewModel.name, surName: userViewModel.surName, email: userViewModel.email)
+                        //TODO handle error case here
                         let userId = userViewModel.insertUser(user : user)
                         let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId)
                         petViewModel.InsertPet(pet: pet)
-                        
+                        NavigationLink(destination: Dashbaord(), label: {
+                            EmptyView()
+                        })
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)
