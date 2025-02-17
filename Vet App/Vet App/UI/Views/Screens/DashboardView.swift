@@ -9,13 +9,18 @@ import SwiftUI
 
 struct DashbaordView : View{
     @StateObject var viewModel = PetViewModel()
-
-        var body: some View {
+    @State private var petIdToPass : Int64 = -1
+    @State private var navigateToPetDashboard = false
+    
+    var body: some View {
+        NavigationView{
             VStack {
                 Text("PET SCREEN")
-                List(viewModel.pets, id: \.name) { item in
+                List(viewModel.pets, id: \.id) { item in
+                    //TODO: Make pretty
                     Button(action: {
-                        print("\(item.name) button tapped!")
+                        petIdToPass = item.id
+                        navigateToPetDashboard = true
                     }) {
                         Text(item.name)
                             .padding()
@@ -24,9 +29,15 @@ struct DashbaordView : View{
                             .cornerRadius(8)
                     }
                 }
+                NavigationLink(destination: PetDashbaordView(petId: $petIdToPass), isActive: $navigateToPetDashboard) {
+                                EmptyView()
+                            }
             }.onAppear(){
                 viewModel.LoadPetsForUser(user_id: 1)
             }
             .padding()
         }
+        
+                    
+    }
 }

@@ -38,7 +38,7 @@ struct SignUpView: View {
                     
                     Button("Submit") {
                         let user = User(id: -1, name: userViewModel.name, surName: userViewModel.surName, email: userViewModel.email)
-                        //TODO handle error case here
+                        //TODO: handle error case here
                         let userId = userViewModel.insertUser(user : user)
                         let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId)
                         petViewModel.InsertPet(pet: pet)
