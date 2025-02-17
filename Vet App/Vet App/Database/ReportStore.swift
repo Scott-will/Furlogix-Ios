@@ -66,4 +66,37 @@ class ReportStore{
     public func GetPrimaryKeyColumn() -> SQLite.Expression<Int64>{
         return id;
     }
+    
+    public func GetReportsForPet(pet_id : Int64) -> [Report]{
+        var reportList : [Report] = []
+        guard let database = db else {return []}
+        do {
+            for report in try database.prepare(self.reports.filter(petId == pet_id)){
+                reportList.append(
+                    Report(
+                        id: report[id],
+                        name: report[name],
+                        petId: report[petId]))
+            }
+        }
+        catch {
+            print(error)
+        }
+        return reportList
+    }
+    
+    func insert(report : Report) -> Int64? {
+        guard let database = db else { return nil }
+
+        let insert = reports.insert(
+                                    self.name <- report.name,
+                                    self.petId <- report.petId)
+        do {
+            let rowID = try database.run(insert)
+            return rowID
+        } catch {
+            print(error)
+            return nil
+        }
+    }
 }

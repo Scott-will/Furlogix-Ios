@@ -34,7 +34,7 @@ struct PetDashbaordView : View{
                 EmptyView()
             }
             NavigationLink(
-                destination: ManageReportsView(),
+                destination: ManageReportsView(petId: $petId),
                 tag: 2, selection: $selectedView
             ) {
                 EmptyView()

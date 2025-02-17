@@ -25,6 +25,7 @@ final class DIContainer {
     static func registerAllServices(){
         shared.register(type: UserRepositoryProtocol.self, service: UserRepository())
         shared.register(type: PetRepositoryProtocol.self, service: PetRepository())
+        shared.register(type: ReportRepositoryProtocol.self, service: ReportRepository())
         
     }
 }

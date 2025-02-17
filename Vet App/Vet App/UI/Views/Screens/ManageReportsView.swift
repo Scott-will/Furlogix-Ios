@@ -8,11 +8,31 @@
 import SwiftUI
 
 struct ManageReportsView : View{
+    @State private var showDialog = false
+    @State private var reportName = ""
+    @Binding var petId : Int64
     
+    //TODO: Doesnt auto refresh
+    @StateObject var reportViewModel = ReportViewModel()
     
     var body : some View{
         VStack{
             Text("Manage Reports Screen")
+            List(reportViewModel.reportsForPet, id: \.id){ item in
+                Button(action:{
+                    print("Button Clicked!")
+                }){
+                    Text(item.name)
+                }
+            }
+            if showDialog{
+                AddReportDialog(isPresented: $showDialog, reportName: $reportName, petId: petId, onSave: reportViewModel.insertReport)
+            }
+            Button("Add") {
+                showDialog = true
+            }
+        }.onAppear(){
+            reportViewModel.GetReportsForPet(petId: petId)
         }
     }
 }
