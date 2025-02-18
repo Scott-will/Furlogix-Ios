@@ -12,7 +12,7 @@ struct ManageReportsView : View{
     @State private var reportName = ""
     @Binding var petId : Int64
     
-    //TODO: Doesnt auto refresh
+    //TODO: Doesnt auto refresh, have call to refresh on insert/update
     @StateObject var reportViewModel = ReportViewModel()
     
     var body : some View{

@@ -71,4 +71,36 @@ class ReportTemplateStore{
     public func GetPrimaryKeyColumn() -> SQLite.Expression<Int64>{
         return id;
     }
+    
+    public func GetReportTemplatesForReport(report_id : Int64) -> [ReportTemplateField]{
+        var templateList : [ReportTemplateField] = []
+        guard let database = db else {return []}
+        do {
+            for reportTemplate in try database.prepare(self.reportTemplates.filter(reportId == report_id)){
+                templateList.append(ReportTemplateField(id: reportTemplate[id], reportId: reportTemplate[reportId], name: reportTemplate[name], favourite: reportTemplate[favourite], fieldType: FieldType(rawValue: Int(reportTemplate[fieldType])) ?? FieldType.Text))
+            }
+        }
+        catch {
+            print(error)
+        }
+        return templateList
+    }
+    
+    public func InsertReportTemplate(template : ReportTemplateField) -> Int64? {
+        guard let database = db else { return nil }
+
+        let insert = reportTemplates.insert(
+            self.name <- template.name,
+            self.reportId <- template.reportId,
+            self.fieldType <- Int64(template.fieldType.rawValue),
+            self.favourite <- template.favourite)
+        do {
+            let rowID = try database.run(insert)
+            return rowID
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+    
 }
