@@ -20,7 +20,7 @@ struct MyApp: App {
         let users = userRepository?.getUsers()
         WindowGroup {
             if((users?.count  ?? 0) > 0){
-                DashbaordView()
+                RootView()
             }
             else{
                 SignUpView()

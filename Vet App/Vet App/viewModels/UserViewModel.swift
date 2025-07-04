@@ -7,17 +7,23 @@
 import Foundation
 
 class UserViewModel : ObservableObject{
+    //login stuff
     @Published var name: String = ""
     @Published var surName: String = ""
     @Published var email: String = ""
     @Published var petName: String = ""
     @Published var petType: String = ""
     
+    //current user stuff
+    
+    @Published var currentUser : User?
+    
     @Published var users : [User] = []
     private let userRepository : UserRepositoryProtocol
     
     init(userRepository : UserRepositoryProtocol = DIContainer.shared.resolve(type: UserRepositoryProtocol.self)!){
         self.userRepository = userRepository
+        self.currentUser = userRepository.getCurrentUser()
     }
     
     public func insertUser(user : User) -> Int64{

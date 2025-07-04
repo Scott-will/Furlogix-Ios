@@ -14,4 +14,8 @@ class UserRepository : UserRepositoryProtocol{
         return UsersStore.instance.insert(user: user)
     }
     
+    func getCurrentUser() -> User? {
+        return UsersStore.instance.getAllUsers().first
+    }
+    
 }

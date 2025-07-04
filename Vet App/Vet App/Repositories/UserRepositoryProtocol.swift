@@ -8,4 +8,6 @@ protocol UserRepositoryProtocol{
     func getUsers() -> [User]
     
     func insertUsers(user : User) -> Int64?
+    
+    func getCurrentUser() -> User?
 }

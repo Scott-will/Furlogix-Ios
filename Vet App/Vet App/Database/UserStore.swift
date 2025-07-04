@@ -97,4 +97,23 @@ class UsersStore{
         }
         return usersList
     }
+    
+    func getCurrentUser() -> User?{
+        guard let database = db else { return nil }
+        
+        do {
+                if let row = try database.pluck(users) {
+                    let userId = row[id]
+                    let userName = row[name]
+                    let surName = row[surName]
+                    let email = row[email]
+                    return User(id: userId, name: userName, surName: surName, email: email)
+                } else {
+                    return nil // No user found
+                }
+            } catch {
+                print("Database error: \(error)")
+                return nil
+            }
+    }
  }

@@ -11,8 +11,9 @@ struct RemindersView : View{
     
     
     var body : some View{
-        VStack{
-            Text("Reminders Screen")
-        }
+            VStack{
+                Text("Reminders Screen")
+            }
+        
     }
 }

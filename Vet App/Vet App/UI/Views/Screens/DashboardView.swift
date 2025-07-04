@@ -13,31 +13,27 @@ struct DashbaordView : View{
     @State private var navigateToPetDashboard = false
     
     var body: some View {
-        NavigationView{
-            VStack {
-                Text("PET SCREEN")
-                List(viewModel.pets, id: \.id) { item in
-                    //TODO: Make pretty
-                    Button(action: {
-                        petIdToPass = item.id
-                        navigateToPetDashboard = true
-                    }) {
-                        Text(item.name)
-                            .padding()
-                            .background(Color.blue)
-                            .foregroundColor(.white)
-                            .cornerRadius(8)
+        VStack {
+                    Text("PET SCREEN")
+                    List(viewModel.pets, id: \.id) { item in
+                        //TODO: Make pretty
+                        Button(action: {
+                            petIdToPass = item.id
+                            navigateToPetDashboard = true
+                        }) {
+                            Text(item.name)
+                                .padding()
+                                .background(Color.blue)
+                                .foregroundColor(.white)
+                                .cornerRadius(8)
+                        }
                     }
+                    NavigationLink(destination: PetDashbaordView(petId: petIdToPass), isActive: $navigateToPetDashboard) {
+                                    EmptyView()
+                                }
+                }.onAppear(){
+                    viewModel.LoadPetsForUser(user_id: 1)
                 }
-                NavigationLink(destination: PetDashbaordView(petId: $petIdToPass), isActive: $navigateToPetDashboard) {
-                                EmptyView()
-                            }
-            }.onAppear(){
-                viewModel.LoadPetsForUser(user_id: 1)
+                .padding()
             }
-            .padding()
-        }
-        
-                    
-    }
 }
