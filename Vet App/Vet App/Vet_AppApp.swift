@@ -10,9 +10,22 @@ import SwiftUI
 
 @main
 struct MyApp: App {
+    
+    init(){
+        DIContainer.registerAllServices()
+    }
+    
     var body: some Scene {
+        let userRepository = DIContainer.shared.resolve(type: UserRepositoryProtocol.self)
+        let users = userRepository?.getUsers()
         WindowGroup {
-            MainView()
+            if((users?.count  ?? 0) > 0){
+                DashbaordView()
+            }
+            else{
+                SignUpView()
+            }
+            
         }
     }
 }
