@@ -8,6 +8,7 @@ import Foundation
 
 class PetViewModel : ObservableObject{
     @Published var pets : [Pet] = []
+    @Published var currentpet : Pet?
     
     private let petRepository : PetRepositoryProtocol
     
@@ -21,5 +22,18 @@ class PetViewModel : ObservableObject{
     public func InsertPet(pet : Pet) -> Int64{
         let petId = self.petRepository.InsertPet(pet: pet)
         return petId ?? -1
+    }
+    
+    public func UpdatePet(pet : Pet) -> Int64{
+        let petId = self.petRepository.UpdatePet(pet: pet)
+        return petId ?? -1
+    }
+    
+    public func GetPetById(petId : Int64){
+        self.currentpet = self.petRepository.GetPet(id: petId)
+    }
+    
+    public func DeletePet(petId : Int64) -> Bool{
+        return self.petRepository.DeletePet(id: petId)
     }
 }
