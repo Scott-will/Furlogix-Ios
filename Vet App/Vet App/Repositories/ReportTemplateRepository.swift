@@ -6,6 +6,17 @@
 //
 
 class ReportTemplateRepository : ReportTemplateRepositoryProtocol{
+    func GetTemplateById(templateId: Int64) -> ReportTemplateField? {
+        return ReportTemplateStore.instance.GetReportTemplateById(templateId: templateId)
+    }
+    
+    func UpdateReportTemplate(template: ReportTemplateField) -> Int64? {
+        return ReportTemplateStore.instance.UpdateReportTemplate(template: template)
+    }
+    
+    func DeleteReportTemplate(templateId: Int64) -> Bool {
+        return ReportTemplateStore.instance.DeleteReportTemplate(templateId: templateId)
+    }
     
     public func GetTemplatesForReport(reportId: Int64) -> [ReportTemplateField] {
         return ReportTemplateStore.instance.GetReportTemplatesForReport(report_id: reportId)

@@ -9,4 +9,10 @@ protocol ReportRepositoryProtocol{
     func getReportsForPet(petId : Int64) -> [Report]
     
     func insertReport(report : Report) -> Int64?
+    
+    func DeleteReport(reportId : Int64) -> Bool
+    
+    func UpdateReport(report : Report) -> Int64?
+    
+    func GetReportById(reportId : Int64) -> Report?
 }

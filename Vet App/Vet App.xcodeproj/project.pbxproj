@@ -203,6 +203,8 @@
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
 				89EA72AB2E1787230087AAE4 /* XCRemoteSwiftPackageReference "SQLite" */,
+				898BB9882E1B89150047AEC8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				898BB9892E1B8CFB0047AEC8 /* XCRemoteSwiftPackageReference "swift-format" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 61D06D832D068843007605AE /* Products */;
@@ -565,6 +567,22 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		898BB9882E1B89150047AEC8 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 0.59.1;
+			};
+		};
+		898BB9892E1B8CFB0047AEC8 /* XCRemoteSwiftPackageReference "swift-format" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/apple/swift-format.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 601.0.0;
+			};
+		};
 		89EA72AB2E1787230087AAE4 /* XCRemoteSwiftPackageReference "SQLite" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/stephencelis/SQLite.swift";

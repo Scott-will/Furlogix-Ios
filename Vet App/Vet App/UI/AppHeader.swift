@@ -8,24 +8,16 @@ import SwiftUI
 
 struct AppHeader: View {
     @ObservedObject var userViewModel: UserViewModel = UserViewModel()
-    var currentRoute: String
-    var onBackOrHome: () -> Void
-    var onProfile: () -> Void
+    @StateObject private var routeManager = RouteManager.shared
+
 
     var body: some View {
         HStack {
-            Button(action: onBackOrHome) {
-                Image(systemName: currentRoute != "dashboard" ? "arrow.backward" : "house.fill")
-                    .foregroundColor(.white)
-            }
-
-            Spacer()
-
             HStack(spacing: 8) {
                 Text(userViewModel.currentUser?.name ?? "Guest")
                     .foregroundColor(.white)
 
-                Button(action: onProfile) {
+                Button(action: {routeManager.push(.profile(userId: 1))}) {
                     Image(systemName: "person.fill")
                         .foregroundColor(.white)
                 }
@@ -33,6 +25,6 @@ struct AppHeader: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .background(Color.purple.opacity(0.7))
+        .background(Themes.primaryColor)
     }
 }

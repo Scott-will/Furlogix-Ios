@@ -9,7 +9,7 @@ import SQLite
 import Foundation
 
 class ReportStore{
-    static let DIR_USERS_DB = "ReportsDb"
+    static let DIR_USERS_DB = "Furlogix"
     static let STORE_NAME = "reports.sqlite3"
     private var db: Connection? = nil
     private let reports = Table("reports")
@@ -99,4 +99,57 @@ class ReportStore{
             return nil
         }
     }
+    
+    func getReportById(reportId: Int64) -> Report? {
+        guard let database = db else { return nil }
+
+        let query = reports.filter(self.id == reportId)
+
+        do {
+            if let row = try database.pluck(query) {
+                return Report(
+                    id: row[self.id],
+                    name: row[self.name],
+                    petId: row[self.petId]
+                )
+            }
+        } catch {
+            print(error)
+        }
+        return nil
+    }
+
+    func update(report: Report) -> Int64? {
+        guard let database = db else { return nil }
+
+        let reportToUpdate = reports.filter(self.id == report.id)
+
+        let update = reportToUpdate.update(
+            self.name <- report.name,
+            self.petId <- report.petId
+        )
+
+        do {
+            let rowsAffected = try database.run(update)
+            return Int64(rowsAffected)
+        } catch {
+            print(error)
+            return nil
+        }
+    }
+
+    func delete(reportId: Int64) -> Bool {
+        guard let database = db else { return false }
+
+        let reportToDelete = reports.filter(self.id == reportId)
+
+        do {
+            try database.run(reportToDelete.delete())
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+
 }

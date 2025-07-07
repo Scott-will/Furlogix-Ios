@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReportEntryView : View{
+struct ReportEntryScreenView : View{
     
     
     var body : some View{

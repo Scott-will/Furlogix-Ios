@@ -8,11 +8,10 @@
 import SwiftUI
 
 
-struct SignUpView: View {
-
+struct SignUpScreenView: View {
+    var onNavigate : (AppRoute) -> Void
     @ObservedObject var userViewModel = UserViewModel()
     @ObservedObject var petViewModel = PetViewModel()
-    @State private var navigateToDashboard = false
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -42,21 +41,17 @@ struct SignUpView: View {
                         let userId = userViewModel.insertUser(user : user)
                         let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId)
                         petViewModel.InsertPet(pet: pet)
-                        navigateToDashboard = true
+                        onNavigate(AppRoute.dashboard(userId: userId))
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
-                    NavigationLink(destination: DashbaordView(), isActive: $navigateToDashboard) {
-                        EmptyView()
                     }
                 }
                 .padding(.top, 20)
             }
             .padding()
         }
-        .navigationTitle("Sign-up")
-        .background(Color.white.ignoresSafeArea())
-    }
+    
 }
