@@ -19,13 +19,7 @@ struct MyApp: App {
         let userRepository = DIContainer.shared.resolve(type: UserRepositoryProtocol.self)
         let users = userRepository?.getUsers()
         WindowGroup {
-            if((users?.count  ?? 0) > 0){
-                RootView()
-            }
-            else{
-                SignUpScreenView(onNavigate: {r in RouteManager.shared.onNavigate(r)})
-            }
-            
+            RootView()
         }
     }
 }

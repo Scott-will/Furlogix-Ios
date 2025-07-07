@@ -41,3 +41,21 @@ extension Color {
     }
 }
 
+struct AppButtonStyle: ButtonStyle {
+    var backgroundColor: Color = Themes.primaryColor
+    var foregroundColor: Color = Themes.onPrimaryColor
+    var cornerRadius: CGFloat = 8
+
+    func makeBody(configuration: Configuration) -> some View {
+        configuration.label
+            .font(.system(size: 16, weight: .semibold))
+            .padding()
+            .frame(maxWidth: .infinity)
+            .background(backgroundColor)
+            .foregroundColor(foregroundColor)
+            .cornerRadius(cornerRadius)
+            .scaleEffect(configuration.isPressed ? 0.96 : 1)
+            .opacity(configuration.isPressed ? 0.8 : 1)
+            .animation(.easeOut(duration: 0.2), value: configuration.isPressed)
+    }
+}

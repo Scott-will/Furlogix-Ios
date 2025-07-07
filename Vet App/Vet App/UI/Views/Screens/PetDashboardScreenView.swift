@@ -16,18 +16,23 @@ struct PetDashbaordScreenView : View{
               VStack{
                     Text("Pet Dashboard")
                     //TODO: Add graphs
-                    Button("Manage Reports"){
+                    Button("Manage Reports")
+                    {
                         onNavigate(.manageReports(petId: petId))
                     }
+                    .buttonStyle(AppButtonStyle())
                     Button("Reports"){
                         onNavigate(.reports(petId: petId))
                     }
+                    .buttonStyle(AppButtonStyle())
                     Button("Reminders"){
                         onNavigate(.reminders)
                     }
+                    .buttonStyle(AppButtonStyle())
                     Button("Pets"){
                         onNavigate(.pets(userId: 1))
                     }
+                    .buttonStyle(AppButtonStyle())
                     
                     
                 }

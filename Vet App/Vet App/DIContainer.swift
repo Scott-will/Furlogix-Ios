@@ -27,5 +27,6 @@ final class DIContainer {
         shared.register(type: PetRepositoryProtocol.self, service: PetRepository())
         shared.register(type: ReportRepositoryProtocol.self, service: ReportRepository())
         shared.register(type: ReportTemplateRepositoryProtocol.self, service: ReportTemplateRepository())
+        shared.register(type: ReminderRepositoryProtocol.self, service: ReminderRepository())
     }
 }

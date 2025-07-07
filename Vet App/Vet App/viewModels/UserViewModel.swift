@@ -28,6 +28,7 @@ class UserViewModel : ObservableObject{
     
     public func insertUser(user : User) -> Int64{
         let result = self.userRepository.insertUsers(user: user)
+        self.getUsers()
         return result ?? -1
     }
     
