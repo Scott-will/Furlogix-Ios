@@ -13,19 +13,15 @@ struct PetDashbaordScreenView : View{
     var onNavigate: (AppRoute) -> Void
     @State private var selectedView : Int? = nil
     var body : some View{
+        //petvViewModel.
               VStack{
                     Text("Pet Dashboard")
-                    //TODO: Add graphs
-                    Button("Manage Reports")
-                    {
-                        onNavigate(.manageReports(petId: petId))
-                    }
                     .buttonStyle(AppButtonStyle())
                     Button("Reports"){
                         onNavigate(.reports(petId: petId))
                     }
                     .buttonStyle(AppButtonStyle())
-                    Button("Reminders"){
+                    Button("Setup Reminders"){
                         onNavigate(.reminders)
                     }
                     .buttonStyle(AppButtonStyle())

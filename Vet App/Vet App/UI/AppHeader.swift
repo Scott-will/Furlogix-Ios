@@ -13,13 +13,6 @@ struct AppHeader: View {
 
     var body: some View {
         HStack {
-            Button(action: {routeManager.pop()}) {
-                Image(systemName: routeManager.currentRoute != AppRoute.dashboard(userId: 1) ? "arrow.backward" : "house.fill")
-                    .foregroundColor(.white)
-            }
-
-            Spacer()
-
             HStack(spacing: 8) {
                 Text(userViewModel.currentUser?.name ?? "Guest")
                     .foregroundColor(.white)

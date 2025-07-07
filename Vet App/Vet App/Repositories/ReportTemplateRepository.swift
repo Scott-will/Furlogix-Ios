@@ -18,7 +18,6 @@ class ReportTemplateRepository : ReportTemplateRepositoryProtocol{
         return ReportTemplateStore.instance.DeleteReportTemplate(templateId: templateId)
     }
     
-    
     public func GetTemplatesForReport(reportId: Int64) -> [ReportTemplateField] {
         return ReportTemplateStore.instance.GetReportTemplatesForReport(report_id: reportId)
     }
