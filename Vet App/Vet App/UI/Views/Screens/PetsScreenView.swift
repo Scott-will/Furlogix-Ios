@@ -19,7 +19,7 @@ struct PetsScreenView : View{
                     self.selectedPet = Pet(id: 0, name: "", type: "", description: "",
                                            userId : userViewModel.currentUser?.id ?? 1, photoUri: "")
                     showPetDialog = true
-                }
+                }.buttonStyle(AppButtonStyle())
                 Text("My Pets")
                 List(petViewModel.pets, id: \.id) { item in
                     //TODO: Make pretty
