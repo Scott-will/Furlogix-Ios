@@ -92,6 +92,26 @@ class PetStore{
         return petList
     }
     
+    public func GetPetById(petId : Int64) -> Pet?{
+        guard let database = db else {return nil}
+        do {
+            for pet in try database.prepare(self.pets.filter(id == petId)){
+                return Pet(
+                    id: pet[id],
+                    name: pet[name],
+                    type: pet[type],
+                    description: pet[description],
+                    userId: pet[userId]
+                )
+            }
+        }
+        catch{
+            print(error)
+            return nil
+        }
+        return nil
+    }
+    
     func insert(pet : Pet) -> Int64? {
         guard let database = db else { return nil }
 
@@ -105,6 +125,37 @@ class PetStore{
         } catch {
             print(error)
             return nil
+        }
+    }
+    
+    func update(pet : Pet) -> Int64? {
+        guard let database = db else{ return nil}
+        let petToUpdate = pets.filter(id == pet.id)
+        let update = petToUpdate.update(
+            self.name <- pet.name,
+            self.description <- pet.description,
+            self.type <- pet.type,
+            self.userId <- pet.userId
+        )
+        do {
+            let rowID = try database.run(update)
+            return Int64(rowID)
+        } catch {
+            print(error)
+            return nil
+        }
+        
+    }
+    
+    func delete(petId : Int64) -> Bool {
+        guard let database = db else { return false }
+        let petToDelete = pets.filter(id == petId)
+        do {
+            try database.run(petToDelete.delete())
+            return true
+        } catch {
+            print(error)
+            return false
         }
     }
 }

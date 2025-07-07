@@ -74,4 +74,120 @@ class ReportEntryStore{
     public func GetPrimaryKeyColumn() -> SQLite.Expression<Int64>{
         return id;
     }
+    
+    public func GetAllEntriesForReport (queryReportId: Int64) -> [ReportEntry]?{
+        var entries = [ReportEntry]()
+        guard let database = db else {
+            return nil
+        }
+        do{
+            for entry in try database.prepare(self.reportEntrys.filter(reportId == queryReportId)){
+                entries.append(ReportEntry(
+                    id: Int64(entry[id]),
+                    value: String(entry[value]),
+                    reportId: Int64(entry[reportId]),
+                    templateId: Int64(entry[templateId]),
+                    timestamp: String(entry[timestamp]),
+                    sent: Bool(entry[sent])))
+            }
+        }
+        catch{
+            print(error)
+            return nil
+        }
+        return entries
+    }
+    
+    public func GetAllEntriesForReportTemplate(queryTemplateId : Int64) -> [ReportEntry]?{
+        var entries = [ReportEntry]()
+        guard let database = db else {
+            return nil
+        }
+        do{
+            for entry in try database.prepare(self.reportEntrys.filter(templateId == queryTemplateId)){
+                entries.append(ReportEntry(
+                    id: Int64(entry[id]),
+                    value: String(entry[value]),
+                    reportId: Int64(entry[reportId]),
+                    templateId: Int64(entry[templateId]),
+                    timestamp: String(entry[timestamp]),
+                    sent: Bool(entry[sent])))
+            }
+        }
+        catch{
+            print(error)
+            return nil
+        }
+        return entries
+    }
+    
+    public func InsertReportEntries(entries : [ReportEntry]) -> Bool{
+        guard let database = db else { return false }
+        do{
+            for entry in entries {
+                let insert = reportEntrys.insert(
+                    value <- entry.value,
+                    reportId <- entry.reportId,
+                    templateId <- entry.templateId,
+                    timestamp <- entry.timestamp,
+                    sent <- entry.sent
+                )
+                try database.run(insert)
+            }
+        }
+        catch{
+            print(error)
+            return false
+        }
+        return true
+    }
+    
+    public func DeleteSentReportEntries() -> Bool{
+        guard let database = db else { return false }
+        let entriesToDelete = reportEntrys.filter(sent == true)
+        do {
+            try database.run(entriesToDelete.delete())
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    public func DeleteReportEntry(entryId : Int64) -> Bool{
+        guard let database = db else { return false }
+        let entriesToDelete = reportEntrys.filter(id == entryId)
+        do {
+            try database.run(entriesToDelete.delete())
+            return true
+        } catch {
+            print(error)
+            return false
+        }
+    }
+    
+    public func UpdateReportEntries(entries : [ReportEntry]) -> Bool{
+        guard let database = db else { return false }
+        do{
+            for entry in entries{
+                let entryToUpdate = reportEntrys.filter(id == entry.id)
+                let update = entryToUpdate.update(
+                                value <- entry.value,
+                                reportId <- entry.reportId,
+                                templateId <- entry.templateId,
+                                timestamp <- entry.timestamp,
+                                sent <- entry.sent
+                            )
+
+                            try database.run(update)
+            }
+        }
+        catch{
+            print(error)
+            return false
+        }
+        return true
+        
+    }
+    
 }

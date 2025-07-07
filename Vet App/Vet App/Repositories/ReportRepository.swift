@@ -6,6 +6,18 @@
 //
 
 class ReportRepository : ReportRepositoryProtocol{
+    func DeleteReport(reportId: Int64) -> Bool {
+        return ReportStore.instance.delete(reportId: reportId)
+    }
+    
+    func UpdateReport(report: Report) -> Int64? {
+        return ReportStore.instance.update(report: report)
+    }
+    
+    func GetReportById(reportId: Int64) -> Report? {
+        return ReportStore.instance.getReportById(reportId: reportId)
+    }
+    
     
     public func getReportsForPet(petId: Int64) -> [Report] {
         return ReportStore.instance.GetReportsForPet(pet_id: petId)

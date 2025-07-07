@@ -13,14 +13,14 @@ class RemindersStore{
     static let DIR_USERS_DB = "Furlogix"
     static let STORE_NAME = "reminders.sqlite3"
     private var db: Connection? = nil
-    private let pets = Table("reminders")
+    private let reminders = Table("reminders")
 
     private let id = SQLite.Expression<Int64>("id")
     private let frequency = SQLite.Expression<String>("frequency")
     private let type = SQLite.Expression<String>("type")
     private let startTime = SQLite.Expression<String>("startTime")
     private let title = SQLite.Expression<String>("title")
-    private let Message = SQLite.Expression<String>("Message")
+    private let message = SQLite.Expression<String>("Message")
     
     private init() {
         if let docDir = FileManager.default.urls(for: .documentDirectory, in:
@@ -47,17 +47,72 @@ class RemindersStore{
             return
         }
         do {
-            try database.run(pets.create { table in
+            try database.run(reminders.create { table in
                 table.column(id, primaryKey: .autoincrement)
                 table.column(frequency)
                 table.column(type)
                 table.column(startTime)
                 table.column(title)
-                table.column(Message)
+                table.column(message)
             })
             print("Table Created...")
         } catch {
             print(error)
+        }
+    }
+    
+    func getAllReminders() -> [Reminder]? {
+        var allReminders: [Reminder] = []
+        guard let database = db else {
+            return nil
+        }
+        do {
+            for reminder in try database.prepare(reminders) {
+                allReminders.append(Reminder(
+                    id: Int64(reminder[id]),
+                    frequency: String(reminder[frequency]),
+                    type : String(reminder[type]),
+                    startTime:  String(reminder[startTime]),
+                    title: String(reminder[title]),
+                    message: String(reminder[message])))
+            }
+        }
+        catch {
+            print(error)
+            return nil
+        }
+        return allReminders
+    }
+    
+    func deleteReminder(reminderId: Int64) {
+            guard let database = db else {
+            return
+        }
+        do {
+            try database.run(reminders.filter(id == reminderId).delete())
+        } catch {
+            print(error)
+        }
+    }
+    
+    func insertReminder(reminder: Reminder) -> Int64? {
+        guard let database = db else {
+            return nil
+        }
+        do {
+            let rowID = try database.run(reminders.insert(
+                id <- reminder.id,
+                frequency <- reminder.frequency,
+                type <- reminder.type,
+                startTime <- reminder.startTime,
+                title <- reminder.title,
+                message <- reminder.message
+            ))
+            return rowID
+        }
+        catch{
+            print(error)
+            return nil
         }
     }
 }

@@ -111,9 +111,10 @@ class UsersStore{
                 } else {
                     return nil // No user found
                 }
-            } catch {
-                print("Database error: \(error)")
-                return nil
             }
+        catch {
+            print("Database error: \(error)")
+            return nil
+        }
     }
  }
