@@ -1,5 +1,5 @@
 //
-//  ReportsView.swift
+//  ReportTemplateView.swift
 //  Vet App
 //
 //  Created by Scott Williams on 2025-02-16.
@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct ReportsView : View{
+struct ReportTemplateScreenView : View{
     
     
     var body : some View{
         VStack{
-            Text("Reports Screen")
+            Text("Report Template Screen")
         }
     }
 }

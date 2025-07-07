@@ -10,7 +10,7 @@ import Foundation
 
 class PetStore{
     
-    static let DIR_USERS_DB = "PetsDB"
+    static let DIR_USERS_DB = "Furlogix"
     static let STORE_NAME = "pets.sqlite3"
     private var db: Connection? = nil
     private let pets = Table("pets")

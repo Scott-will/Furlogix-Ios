@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct RemindersView : View{
+struct RemindersScreenView : View{
     
     
     var body : some View{

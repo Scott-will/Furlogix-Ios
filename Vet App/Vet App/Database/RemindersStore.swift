@@ -1,32 +1,27 @@
 //
-//  ReportEntryStore.swift
+//  RemindersStore.swift
 //  Vet App
 //
-//  Created by Scott Williams on 2025-02-15.
+//  Created by Scott Williams on 2025-07-06.
 //
-
 
 import SQLite
 import Foundation
 
-class ReportEntryStore{
+class RemindersStore{
     
     static let DIR_USERS_DB = "Furlogix"
-    static let STORE_NAME = "reportEntry.sqlite3"
+    static let STORE_NAME = "reminders.sqlite3"
     private var db: Connection? = nil
-    private let reportEntrys = Table("reportEntrys")
+    private let pets = Table("reminders")
 
     private let id = SQLite.Expression<Int64>("id")
-    private let value = SQLite.Expression<String>("value")
-    private let timestamp = SQLite.Expression<String>("timestamp")
-    private let reportId = SQLite.Expression<Int64>("reportId")
-    private let templateId = SQLite.Expression<Int64>("templateId")
-    private let sent = SQLite.Expression<Bool>("sent")
-
-    static let instance = ReportEntryStore()
-
-     
-
+    private let frequency = SQLite.Expression<String>("frequency")
+    private let type = SQLite.Expression<String>("type")
+    private let startTime = SQLite.Expression<String>("startTime")
+    private let title = SQLite.Expression<String>("title")
+    private let Message = SQLite.Expression<String>("Message")
+    
     private init() {
         if let docDir = FileManager.default.urls(for: .documentDirectory, in:
                 .userDomainMask).first {
@@ -52,26 +47,17 @@ class ReportEntryStore{
             return
         }
         do {
-            try database.run(reportEntrys.create { table in
+            try database.run(pets.create { table in
                 table.column(id, primaryKey: .autoincrement)
-                table.column(value)
-                table.column(timestamp)
-                table.column(reportId)
-                table.column(templateId)
-                table.foreignKey(reportId, references: ReportStore.instance.GetTable(), ReportStore.instance.GetPrimaryKeyColumn())
-                table.foreignKey(templateId, references: ReportTemplateStore.instance.GetTable(), ReportTemplateStore.instance.GetPrimaryKeyColumn())
+                table.column(frequency)
+                table.column(type)
+                table.column(startTime)
+                table.column(title)
+                table.column(Message)
             })
             print("Table Created...")
         } catch {
             print(error)
         }
-    }
-    
-    public func GetTable() -> Table{
-        return reportEntrys
-    }
-    
-    public func GetPrimaryKeyColumn() -> SQLite.Expression<Int64>{
-        return id;
     }
 }

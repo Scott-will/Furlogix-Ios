@@ -22,7 +22,7 @@ class ReportTemplateViewModel : ObservableObject{
     }
     
     public func InsertReportTemplate(name : String, reportId : Int64, type : FieldType) -> Int64?{
-        var template = ReportTemplateField(id: -1, reportId: reportId, name: name, favourite: false, fieldType: type)
+        let template = ReportTemplateField(id: -1, reportId: reportId, name: name, favourite: false, fieldType: type)
         return reportTemplateRepository.InsertReportTemplate(template: template)
     }
 }

@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ManageReportsView : View{
+struct ManageReportsScreenView : View{
     @State private var showDialog = false
     @State private var reportName = ""
     var petId : Int64

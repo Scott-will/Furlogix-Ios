@@ -10,7 +10,7 @@ import SQLite
 import Foundation
 
 class ReportTemplateStore{
-    static let DIR_USERS_DB = "ReportsDb"
+    static let DIR_USERS_DB = "Furlogix"
     static let STORE_NAME = "reportTemplates.sqlite3"
     private var db: Connection? = nil
     private let reportTemplates = Table("reportTemplates")

@@ -8,31 +8,45 @@ import SwiftUI
 
 struct RootView: View {
     @StateObject var userViewModel = UserViewModel()
-    @State private var path = NavigationPath()
-    @State private var routeStack: [String] = []
+    @StateObject private var routeManager = RouteManager.shared
+
 
     var body: some View {
-        
-            
 
-            NavigationStack(path: $path) {
+            NavigationStack(path: $routeManager.path) {
                 VStack(spacing: 0) {
-                AppHeader(
-                    currentRoute: currentRoute,
-                    onBackOrHome: { popRoute() },
-                    onProfile: { pushRoute("profile") }
-                )
+                AppHeader()
                 .frame(height: 60)
-                .background(Color.purple)
+                .background(Themes.primaryColor)
                 contentView()
-                    .navigationDestination(for: String.self) { route in
+                    .navigationDestination(for: AppRoute.self) { route in
                         switch route {
-                        case let petRoute where petRoute.starts(with: "pet/"):
-                            if let petId = Int64(petRoute.dropFirst(4)) {
-                                PetDashbaordView(petId: petId)
-                            } else {
-                                Text("Invalid pet id")
-                            }
+                        case .dashboard(let userId):
+                            DashbaordScreenView(onNavigate: {r in routeManager.onNavigate(r)})
+                        case .reportsTemplate(let reportId, let reportName):
+                            ReportTemplateScreenView()
+                        case .petDashboard(let petId):
+                            PetDashbaordScreenView(petId: petId, onNavigate: {r in routeManager.onNavigate(r)})
+                        case .profile(let userId):
+                            ProfileScreenView()
+                        case .reportEntry(let reportId):
+                            ReportEntryScreenView()
+                        case .manageReports(let petId):
+                            ManageReportsScreenView(petId : petId)
+                        case .reports(let petId):
+                            ReportsScreenView()
+                        case .addPet(let userId):
+                            AddPetScreenView()
+                        case .uploadPetPhoto:
+                            UploadPetPhotoScreenView()
+                        case .reminders:
+                            RemindersScreenView()
+                        case .reportEntryHistory(let reportId):
+                            ReportEntryHistoryScreenView()
+                        case .pets(let userId):
+                            PetsScreenView()
+                        case .editReport:
+                            EditReportScreenView()
                         default:
                             Text("Unknown route")
                         }
@@ -41,29 +55,14 @@ struct RootView: View {
         }
         .edgesIgnoringSafeArea(.top)
     }
-
-    private var currentRoute: String {
-        routeStack.last ?? "dashboard"
-    }
-
-    private func pushRoute(_ route: String) {
-        path.append(route)
-        routeStack.append(route)
-    }
-
-    private func popRoute() {
-        if !routeStack.isEmpty {
-            routeStack.removeLast()
-            path.removeLast()
-        }
-    }
+    
 
     @ViewBuilder
-    private func contentView() -> some View {
-        if routeStack.isEmpty {
-            DashbaordView()
-        } else {
-            Text("Loading...")
+        private func contentView() -> some View {
+            if routeManager.path.isEmpty {
+                DashbaordScreenView(onNavigate: {r in routeManager.onNavigate(r)})
+            } else {
+                EmptyView()
+            }
         }
-    }
 }

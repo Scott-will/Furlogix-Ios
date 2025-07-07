@@ -23,7 +23,7 @@ struct MyApp: App {
                 RootView()
             }
             else{
-                SignUpView()
+                SignUpScreenView(onNavigate: {r in RouteManager.shared.onNavigate(r)})
             }
             
         }

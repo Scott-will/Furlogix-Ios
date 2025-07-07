@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ReportEntryHistoryView : View{
+struct ReportEntryHistoryScreenView : View{
     
     
     var body : some View{

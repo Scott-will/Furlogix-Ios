@@ -8,8 +8,8 @@
 import SwiftUI
 
 
-struct SignUpView: View {
-
+struct SignUpScreenView: View {
+    var onNavigate : (AppRoute) -> Void
     @ObservedObject var userViewModel = UserViewModel()
     @ObservedObject var petViewModel = PetViewModel()
     @State private var navigateToDashboard = false
@@ -48,7 +48,7 @@ struct SignUpView: View {
                     .background(Color.blue)
                     .foregroundColor(.white)
                     .cornerRadius(8)
-                    NavigationLink(destination: DashbaordView(), isActive: $navigateToDashboard) {
+                    NavigationLink(destination: DashbaordScreenView(onNavigate: onNavigate), isActive: $navigateToDashboard) {
                         EmptyView()
                     }
                 }

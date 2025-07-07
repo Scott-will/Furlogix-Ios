@@ -10,7 +10,7 @@ import Foundation
 
 class UsersStore{
     
-    static let DIR_USERS_DB = "UsersDB"
+    static let DIR_USERS_DB = "Furlogix"
     static let STORE_NAME = "users.sqlite3"
     private var db: Connection? = nil
     private let users = Table("users")
