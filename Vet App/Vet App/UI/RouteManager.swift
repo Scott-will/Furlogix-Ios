@@ -16,7 +16,7 @@ final class RouteManager: ObservableObject {
     private init() {}
 
     var currentRoute: AppRoute {
-        stack.last ?? .dashboard(userId: 1)
+        stack.last ?? .petDashboard(petId: 1)
     }
 
     func push(_ route: AppRoute) {

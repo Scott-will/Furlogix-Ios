@@ -20,6 +20,7 @@ class PetStore{
     private let type = SQLite.Expression<String>("type")
     private let description = SQLite.Expression<String>("description")
     private let userId = SQLite.Expression<Int64>("userId")
+    private let photoUri = SQLite.Expression<String>("photoUri")
 
     static let instance = PetStore()
 
@@ -56,6 +57,7 @@ class PetStore{
                 table.column(type)
                 table.column(description)
                 table.column(userId)
+                table.column(photoUri)
                 table.foreignKey(userId, references: UsersStore.instance.GetTable(), UsersStore.instance.GetPrimaryKeyColumn())
             })
             print("Table Created...")
@@ -83,7 +85,8 @@ class PetStore{
                         name: pet[name],
                         type: pet[type],
                         description: pet[description],
-                        userId: pet[userId]))
+                        userId: pet[userId],
+                    photoUri: pet[photoUri]))
             }
         }
         catch {
@@ -101,7 +104,8 @@ class PetStore{
                     name: pet[name],
                     type: pet[type],
                     description: pet[description],
-                    userId: pet[userId]
+                    userId: pet[userId],
+                    photoUri: pet[photoUri]
                 )
             }
         }
@@ -118,7 +122,8 @@ class PetStore{
         let insert = pets.insert(self.name <- pet.name,
                                  self.description <- pet.description,
                                  self.type <- pet.type,
-                                 self.userId <- pet.userId)
+                                 self.userId <- pet.userId,
+                                 self.photoUri <- photoUri)
         do {
             let rowID = try database.run(insert)
             return rowID
@@ -135,7 +140,8 @@ class PetStore{
             self.name <- pet.name,
             self.description <- pet.description,
             self.type <- pet.type,
-            self.userId <- pet.userId
+            self.userId <- pet.userId,
+            self.photoUri <- pet.photoUri
         )
         do {
             let rowID = try database.run(update)

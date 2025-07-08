@@ -10,8 +10,15 @@ import Foundation
 class MockUserRepository: UserRepositoryProtocol {
     var insertedUsers: [User] = []
     var fakeUsers: [User] = []
+    
+    var insertShouldReturnNil = false
+    var updateShouldReturnNil = false
+    var deleteShouldReturnFalse = false
 
     func insertUsers(user: User) -> Int64? {
+        if(insertShouldReturnNil){
+            return nil
+        }
         insertedUsers.append(user)
         return 1
     }

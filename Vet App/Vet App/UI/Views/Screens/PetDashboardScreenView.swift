@@ -13,9 +13,8 @@ struct PetDashbaordScreenView : View{
     var onNavigate: (AppRoute) -> Void
     @State private var selectedView : Int? = nil
     var body : some View{
-        //petvViewModel.
               VStack{
-                    Text("Pet Dashboard")
+                  Text("\(petvViewModel.currentpet?.name ?? "Pet") Dashboard")
                     .buttonStyle(AppButtonStyle())
                     Button("Reports"){
                         onNavigate(.reports(petId: petId))
@@ -29,9 +28,16 @@ struct PetDashbaordScreenView : View{
                         onNavigate(.pets(userId: 1))
                     }
                     .buttonStyle(AppButtonStyle())
+                  Button("Help"){
+                      //onNavigate(.pets(userId: 1))
+                  }
+                  .buttonStyle(AppButtonStyle())
                     
                     
                 }
+              .onAppear(){
+                  petvViewModel.GetPetById(petId: petId)
+              }
               .padding()
             }
         
