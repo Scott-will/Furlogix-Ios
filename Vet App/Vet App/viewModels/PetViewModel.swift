@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class PetViewModel : ObservableObject{
+class PetViewModel : ObservableObject, ErrorMessageProvider{
     @Published var pets : [Pet] = []
     @Published var currentpet : Pet?
     @Published var errorMessage : String? = nil

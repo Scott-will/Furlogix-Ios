@@ -100,5 +100,6 @@ struct EditPetDialog : View{
                 }
             }
         }
+        .withErrorAlerts(viewModels: [petViewModel])
     }
 }

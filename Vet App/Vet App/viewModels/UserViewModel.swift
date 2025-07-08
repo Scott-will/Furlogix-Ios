@@ -6,7 +6,7 @@
 //
 import Foundation
 
-class UserViewModel : ObservableObject{
+class UserViewModel : ObservableObject, ErrorMessageProvider{
     
     @Published var errorMessage : String? = nil
     //login stuff

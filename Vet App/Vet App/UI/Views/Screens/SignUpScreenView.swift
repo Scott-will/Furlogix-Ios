@@ -12,6 +12,7 @@ struct SignUpScreenView: View {
     var onNavigate : (AppRoute) -> Void
     @ObservedObject var userViewModel = UserViewModel()
     @ObservedObject var petViewModel = PetViewModel()
+    @State private var showErrorAlert = false
     var body: some View {
         NavigationView {
             VStack(spacing: 20) {
@@ -37,11 +38,14 @@ struct SignUpScreenView: View {
                     
                     Button("Submit") {
                         let user = User(id: -1, name: userViewModel.name, surName: userViewModel.surName, email: userViewModel.email)
-                        //TODO: handle error case here
                         let userId = userViewModel.insertUser(user : user)
-                        let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId, photoUri: "")
-                        petViewModel.InsertPet(pet: pet)
-                        onNavigate(AppRoute.dashboard(userId: userId))
+                        if(userId != -1){
+                            let pet = Pet(id: -1, name: userViewModel.petName, type: userViewModel.petType, description: "", userId: userId, photoUri: "")
+                            let result = petViewModel.InsertPet(pet: pet)
+                            if(result != -1){
+                                onNavigate(AppRoute.dashboard(userId: userId))
+                            }
+                        }
                     }
                     .frame(maxWidth: .infinity, minHeight: 50)
                     .background(Color.blue)
@@ -52,6 +56,17 @@ struct SignUpScreenView: View {
                 .padding(.top, 20)
             }
             .padding()
+            .withErrorAlerts(viewModels: [userViewModel, petViewModel])
+
+        }
+    
+        private func errorMessageText() -> String {
+            return userViewModel.errorMessage ?? petViewModel.errorMessage ?? "Unknown error"
+        }
+
+        private func clearErrors() {
+            userViewModel.errorMessage = nil
+            petViewModel.errorMessage = nil
         }
     
 }
