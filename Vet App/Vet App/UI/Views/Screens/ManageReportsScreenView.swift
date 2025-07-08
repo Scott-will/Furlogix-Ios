@@ -10,6 +10,7 @@ import SwiftUI
 struct ManageReportsScreenView : View{
     @State private var showDialog = false
     @State private var reportName = ""
+    var onNavigate: (AppRoute) -> Void
     var petId : Int64
     
     //TODO: Doesnt auto refresh, have call to refresh on insert/update
@@ -20,7 +21,7 @@ struct ManageReportsScreenView : View{
                 Text("Manage Reports Screen")
                 List(reportViewModel.reportsForPet, id: \.id){ item in
                     Button(action:{
-                        print("Button Clicked!")
+                        onNavigate(AppRoute.reportEntry(reportId: item.id))
                     }){
                         Text(item.name)
                     }
@@ -30,7 +31,7 @@ struct ManageReportsScreenView : View{
                 }
                 Button("Add") {
                     showDialog = true
-                }
+                }.buttonStyle(AppButtonStyle())
             }.onAppear(){
                 reportViewModel.GetReportsForPet(petId: petId)
             }

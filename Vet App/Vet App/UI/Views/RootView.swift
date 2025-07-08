@@ -38,7 +38,7 @@ struct RootView: View {
                                 case .reportEntry(let reportId):
                                     ReportEntryScreenView()
                                 case .manageReports(let petId):
-                                    ManageReportsScreenView(petId : petId)
+                                    ManageReportsScreenView(onNavigate: {r in routeManager.onNavigate(r)}, petId : petId)
                                 case .reports(let petId):
                                     ReportsScreenView()
                                 case .addPet(let userId):
