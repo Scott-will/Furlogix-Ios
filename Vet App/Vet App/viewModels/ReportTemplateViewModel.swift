@@ -8,7 +8,8 @@
 import Foundation
 
 class ReportTemplateViewModel : ObservableObject{
-    
+    @Published var errorMsg : String? = nil
+
     @Published var templatesForReports : [ReportTemplateField] = []
     
     private let reportTemplateRepository : ReportTemplateRepositoryProtocol

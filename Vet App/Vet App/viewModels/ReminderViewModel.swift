@@ -8,5 +8,6 @@
 import Foundation
 
 class ReminderViewModel : ObservableObject{
-    
+    @Published var errorMsg : String? = nil
+
 }

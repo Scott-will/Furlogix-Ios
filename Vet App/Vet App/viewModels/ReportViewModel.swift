@@ -7,7 +7,8 @@
 import Foundation
 
 class ReportViewModel : ObservableObject{
-    
+    @Published var errorMsg : String? = nil
+
     @Published var reportsForPet : [Report] = []
     
     private let reportRepository : ReportRepositoryProtocol

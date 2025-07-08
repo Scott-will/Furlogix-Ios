@@ -14,16 +14,22 @@ class MockPetRepository: PetRepositoryProtocol {
     var deletedPetIds: [Int64] = []
     var fetchedPetId: Int64?
 
+    var insertShouldReturnNil = false
+    var updateShouldReturnNil = false
+    var deleteShouldReturnFalse = false
+
     func GetPetsForUser(id: Int64) -> [Pet] {
         return fakePets
     }
 
     func InsertPet(pet: Pet) -> Int64? {
+        if insertShouldReturnNil { return nil }
         insertedPets.append(pet)
         return pet.id
     }
 
     func UpdatePet(pet: Pet) -> Int64? {
+        if updateShouldReturnNil { return nil }
         updatedPets.append(pet)
         return pet.id
     }
@@ -34,6 +40,7 @@ class MockPetRepository: PetRepositoryProtocol {
     }
 
     func DeletePet(id: Int64) -> Bool {
+        if deleteShouldReturnFalse { return false }
         deletedPetIds.append(id)
         return true
     }

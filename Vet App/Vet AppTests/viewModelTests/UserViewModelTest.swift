@@ -10,7 +10,7 @@ import Testing
 
 struct UserViewModelTests {
     @Test
-    func testInsertUser() async throws {
+    func testInsertUser_success() async throws {
         let mockRepo = MockUserRepository()
         let viewModel = UserViewModel(userRepository: mockRepo)
 
@@ -20,10 +20,48 @@ struct UserViewModelTests {
         #expect(resultId == 1)
         #expect(mockRepo.insertedUsers.count == 1)
         #expect(mockRepo.insertedUsers.first?.name == "John")
+        #expect(viewModel.errorMessage == nil)
     }
 
     @Test
-    func testGetUsers() async throws {
+    func testInsertUser_emptyName() async throws {
+        let mockRepo = MockUserRepository()
+        let viewModel = UserViewModel(userRepository: mockRepo)
+
+        let user = User(id: 2, name: "   ", surName: "Doe", email: "john@example.com")
+        let resultId = viewModel.insertUser(user: user)
+
+        #expect(resultId == -1)
+        #expect(viewModel.errorMessage != nil)
+    }
+
+    @Test
+    func testInsertUser_invalidEmail() async throws {
+        let mockRepo = MockUserRepository()
+        let viewModel = UserViewModel(userRepository: mockRepo)
+
+        let user = User(id: 3, name: "Jane", surName: "Doe", email: "")
+        let resultId = viewModel.insertUser(user: user)
+
+        #expect(resultId == -1)
+        #expect(viewModel.errorMessage != nil)
+    }
+
+    @Test
+    func testInsertUser_failure() async throws {
+        let mockRepo = MockUserRepository()
+        mockRepo.insertShouldReturnNil = true
+
+        let viewModel = UserViewModel(userRepository: mockRepo)
+        let user = User(id: 4, name: "Sam", surName: "Green", email: "sam@example.com")
+        let resultId = viewModel.insertUser(user: user)
+
+        #expect(resultId == -1)
+        #expect(viewModel.errorMessage != nil)
+    }
+
+    @Test
+    func testGetUsers_success() async throws {
         let mockRepo = MockUserRepository()
         mockRepo.fakeUsers = [
             User(id: 1, name: "Alice", surName: "Smith", email: "alice@example.com"),
@@ -35,6 +73,19 @@ struct UserViewModelTests {
 
         #expect(viewModel.users.count == 2)
         #expect(viewModel.name == "Alice")
+        #expect(viewModel.errorMessage == nil)
+    }
+
+    @Test
+    func testGetUsers_empty() async throws {
+        let mockRepo = MockUserRepository()
+        mockRepo.fakeUsers = []
+
+        let viewModel = UserViewModel(userRepository: mockRepo)
+        viewModel.getUsers()
+
+        #expect(viewModel.users.isEmpty)
+        #expect(viewModel.errorMessage != nil)
     }
 
     @Test
@@ -46,6 +97,6 @@ struct UserViewModelTests {
         let viewModel = UserViewModel(userRepository: mockRepo)
 
         #expect(viewModel.currentUser?.name == "Charlie")
+        #expect(viewModel.errorMessage == nil)
     }
 }
-
