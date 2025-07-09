@@ -26,4 +26,12 @@ class ReportViewModel : ObservableObject{
         //TODO: handle error
         return self.reportRepository.insertReport(report: report)
     }
+    
+    public func deleteReport(id : Int64){
+        self.reportRepository.DeleteReport(reportId: id)
+    }
+    
+    public func SendReport(id : Int64){
+        
+    }
 }

@@ -23,7 +23,15 @@ class ReportTemplateViewModel : ObservableObject{
     }
     
     public func InsertReportTemplate(name : String, reportId : Int64, type : FieldType) -> Int64?{
-        let template = ReportTemplateField(id: -1, reportId: reportId, name: name, favourite: false, fieldType: type)
+        let template = ReportTemplateField(id: -1, reportId: reportId, name: name, fieldType: type)
         return reportTemplateRepository.InsertReportTemplate(template: template)
+    }
+    
+    public func DeleteReportTemplate(templateId : Int64){
+        reportTemplateRepository.DeleteReportTemplate(templateId: templateId)
+    }
+    
+    public func UpdateReportTemplate(template : ReportTemplateField){
+        reportTemplateRepository.UpdateReportTemplate(template: template)
     }
 }

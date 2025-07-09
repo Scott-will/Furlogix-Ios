@@ -48,11 +48,11 @@ struct RootView: View {
                                 case .reminders:
                                     RemindersScreenView()
                                 case .reportEntryHistory(let reportId):
-                                    ReportEntryHistoryScreenView()
+                                    ReportEntryHistoryScreenView(reportId: reportId)
                                 case .pets(let userId):
                                     PetsScreenView()
-                                case .editReport:
-                                    EditReportScreenView()
+                                case .editReport(let reportId):
+                                    EditReportScreenView(reportId: reportId)
                                 default:
                                     Text("Unknown route")
                                 }
