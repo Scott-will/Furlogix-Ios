@@ -57,7 +57,7 @@ class RemindersStore{
             })
             print("Table Created...")
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
     }
     
@@ -78,7 +78,7 @@ class RemindersStore{
             }
         }
         catch {
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
         return allReminders
@@ -91,7 +91,7 @@ class RemindersStore{
         do {
             try database.run(reminders.filter(id == reminderId).delete())
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
     }
     
@@ -111,7 +111,7 @@ class RemindersStore{
             return rowID
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
     }
