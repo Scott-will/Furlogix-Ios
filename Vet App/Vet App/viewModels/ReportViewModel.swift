@@ -11,6 +11,8 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
 
     @Published var reportsForPet : [Report] = []
     
+    @Published var currentReport : Report? = nil
+    
     private let reportRepository : ReportRepositoryProtocol
     
     init(reportRepository : ReportRepositoryProtocol = DIContainer.shared.resolve(type: ReportRepositoryProtocol.self)!){
@@ -55,6 +57,10 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
     
     public func SendReport(id : Int64){
         
+    }
+    
+    public func loadCurrentReport(reportId : Int64){
+        self.currentReport = self.reportsForPet.first{ $0.id == reportId}
     }
     
     private func IsReportValid(_ report : Report) -> Bool{

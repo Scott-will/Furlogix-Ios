@@ -36,7 +36,7 @@ struct RootView: View {
                                 case .profile(let userId):
                                     ProfileScreenView()
                                 case .reportEntry(let reportId):
-                                    ReportEntryScreenView()
+                                    ReportEntryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .manageReports(let petId):
                                     ManageReportsScreenView(onNavigate: {r in routeManager.onNavigate(r)}, petId : petId)
                                 case .reports(let petId):
@@ -48,7 +48,7 @@ struct RootView: View {
                                 case .reminders:
                                     RemindersScreenView()
                                 case .reportEntryHistory(let reportId):
-                                    ReportEntryHistoryScreenView(reportId: reportId)
+                                    ReportEntryHistoryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .pets(let userId):
                                     PetsScreenView()
                                 case .editReport(let reportId):
