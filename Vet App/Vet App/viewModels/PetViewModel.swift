@@ -17,6 +17,7 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
         self.petRepository = petRepository
     }
     public func LoadPetsForUser(user_id : Int64){
+        AppLogger.debug("Fetching users for user \(user_id)")
         self.pets = self.petRepository.GetPetsForUser(id: user_id)
         if(self.pets.isEmpty){
             self.errorMessage = "No Pets Found"
@@ -28,8 +29,10 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
     
     public func InsertPet(pet : Pet) -> Int64{
         if(!IsValidPet(pet: pet)){
+            AppLogger.error("Invalid pet object on insert")
             return -1
         }
+        AppLogger.debug("Inserting pet \(pet.name)")
         let petId = self.petRepository.InsertPet(pet: pet)
         if(petId == nil){
             self.errorMessage = "Failed to Insert Pet"
@@ -43,8 +46,10 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
     
     public func UpdatePet(pet : Pet) -> Int64{
         if(!IsValidPet(pet: pet)){
+            AppLogger.error("Invalid pet object on insert")
             return -1
         }
+        AppLogger.debug("Updating pet \(pet.id)")
         let petId = self.petRepository.UpdatePet(pet: pet)
         if(petId == nil){
             self.errorMessage = "Failed to Update Pet"
@@ -59,6 +64,7 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
     public func GetPetById(petId : Int64){
         self.currentpet = self.petRepository.GetPet(id: petId)
         if(self.currentpet ==  nil){
+            AppLogger.error("No pet found with id \(petId)")
             self.errorMessage = "No Pet Found"
         }
         else{
@@ -67,8 +73,11 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
     }
     
     public func DeletePet(petId : Int64) -> Bool{
+        AppLogger.debug("Deleting pet with id: \(petId)")
         let result = self.petRepository.DeletePet(id: petId)
         if(result == false){
+            AppLogger.error("failed to delete pet with id: \(petId)")
+
             self.errorMessage = "Failed to Delete Pet"
         }
         else{
@@ -80,6 +89,7 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
     private func IsValidPet(pet : Pet) -> Bool{
         if(pet.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty){
             self.errorMessage = "Please provide a proper name"
+            AppLogger.info("Pet missing name")
             return false
         }
         return true

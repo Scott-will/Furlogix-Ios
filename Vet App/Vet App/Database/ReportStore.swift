@@ -55,7 +55,7 @@ class ReportStore{
             })
             print("Table Created...")
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
     }
     
@@ -80,7 +80,7 @@ class ReportStore{
             }
         }
         catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
         return reportList
     }
@@ -95,7 +95,7 @@ class ReportStore{
             let rowID = try database.run(insert)
             return rowID
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
     }
@@ -114,7 +114,7 @@ class ReportStore{
                 )
             }
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
         return nil
     }
@@ -133,7 +133,7 @@ class ReportStore{
             let rowsAffected = try database.run(update)
             return Int64(rowsAffected)
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
     }
@@ -147,7 +147,7 @@ class ReportStore{
             try database.run(reportToDelete.delete())
             return true
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
     }
