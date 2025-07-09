@@ -63,7 +63,7 @@ class ReportEntryStore{
             })
             print("Table Created...")
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
     }
     
@@ -92,7 +92,7 @@ class ReportEntryStore{
             }
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
         return entries
@@ -115,7 +115,7 @@ class ReportEntryStore{
             }
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
         return entries
@@ -136,7 +136,7 @@ class ReportEntryStore{
             }
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
         return true
@@ -149,7 +149,7 @@ class ReportEntryStore{
             try database.run(entriesToDelete.delete())
             return true
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
     }
@@ -161,7 +161,7 @@ class ReportEntryStore{
             try database.run(entriesToDelete.delete())
             return true
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
     }
@@ -183,7 +183,7 @@ class ReportEntryStore{
             }
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
         return true

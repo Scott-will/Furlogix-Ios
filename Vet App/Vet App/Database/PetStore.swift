@@ -62,7 +62,7 @@ class PetStore{
             })
             print("Table Created...")
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
     }
     
@@ -90,7 +90,7 @@ class PetStore{
             }
         }
         catch {
-            print(error)
+            AppLogger.error("\(error)")
         }
         return petList
     }
@@ -110,7 +110,7 @@ class PetStore{
             }
         }
         catch{
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
         return nil
@@ -128,7 +128,7 @@ class PetStore{
             let rowID = try database.run(insert)
             return rowID
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
     }
@@ -147,7 +147,7 @@ class PetStore{
             let rowID = try database.run(update)
             return Int64(rowID)
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return nil
         }
         
@@ -160,7 +160,7 @@ class PetStore{
             try database.run(petToDelete.delete())
             return true
         } catch {
-            print(error)
+            AppLogger.error("\(error)")
             return false
         }
     }
