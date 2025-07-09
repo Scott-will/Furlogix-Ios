@@ -7,8 +7,8 @@
 
 import Foundation
 
-class ReportTemplateViewModel : ObservableObject{
-    @Published var errorMsg : String? = nil
+class ReportTemplateViewModel : ObservableObject, ErrorMessageProvider{
+    @Published var errorMessage: String? = nil
 
     @Published var templatesForReports : [ReportTemplateField] = []
     
@@ -22,8 +22,7 @@ class ReportTemplateViewModel : ObservableObject{
         self.templatesForReports = reportTemplateRepository.GetTemplatesForReport(reportId: reportId)
     }
     
-    public func InsertReportTemplate(name : String, reportId : Int64, type : FieldType) -> Int64?{
-        let template = ReportTemplateField(id: -1, reportId: reportId, name: name, fieldType: type)
+    public func InsertReportTemplate(template : ReportTemplateField) -> Int64?{
         return reportTemplateRepository.InsertReportTemplate(template: template)
     }
     

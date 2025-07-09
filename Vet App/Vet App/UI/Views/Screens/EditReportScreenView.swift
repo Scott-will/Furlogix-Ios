@@ -25,7 +25,9 @@ struct EditReportScreenView : View{
                 Text("Add Report Template")
             }.buttonStyle(AppButtonStyle())
             Button(action: {
-                
+                for item in self.newTemplateList{
+                    reportTemplateViewModel.InsertReportTemplate(template: item)
+                }
             }){
                 Text("Save")
             }.buttonStyle(AppButtonStyle())
@@ -39,7 +41,10 @@ struct EditReportScreenView : View{
                     _ in reportTemplateViewModel.UpdateReportTemplate(template:item)
                 }
                 )}
-            }.sheet(isPresented: $showDialog) {
+            }.onAppear(){
+                reportTemplateViewModel.GetReportTemplateForReport(reportId: reportId)
+            }
+            .sheet(isPresented: $showDialog) {
                 AddReportTemplateDialog(
                     onSave: { newItem in
                         newTemplateList.append(newItem)
@@ -52,8 +57,6 @@ struct EditReportScreenView : View{
                     reportId: reportId
                 )
             }
-            .onAppear(){
-                reportTemplateViewModel.GetReportTemplateForReport(reportId: reportId)
-            }
+            
     }
 }
