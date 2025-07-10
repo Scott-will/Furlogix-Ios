@@ -17,10 +17,11 @@ class RemindersStore{
 
     private let id = SQLite.Expression<Int64>("id")
     private let frequency = SQLite.Expression<String>("frequency")
-    private let type = SQLite.Expression<String>("type")
     private let startTime = SQLite.Expression<String>("startTime")
     private let title = SQLite.Expression<String>("title")
     private let message = SQLite.Expression<String>("Message")
+    
+    static let instance = RemindersStore()
     
     private init() {
         if let docDir = FileManager.default.urls(for: .documentDirectory, in:
@@ -50,7 +51,6 @@ class RemindersStore{
             try database.run(reminders.create { table in
                 table.column(id, primaryKey: .autoincrement)
                 table.column(frequency)
-                table.column(type)
                 table.column(startTime)
                 table.column(title)
                 table.column(message)
@@ -71,7 +71,6 @@ class RemindersStore{
                 allReminders.append(Reminder(
                     id: Int64(reminder[id]),
                     frequency: String(reminder[frequency]),
-                    type : String(reminder[type]),
                     startTime:  String(reminder[startTime]),
                     title: String(reminder[title]),
                     message: String(reminder[message])))
@@ -103,7 +102,6 @@ class RemindersStore{
             let rowID = try database.run(reminders.insert(
                 id <- reminder.id,
                 frequency <- reminder.frequency,
-                type <- reminder.type,
                 startTime <- reminder.startTime,
                 title <- reminder.title,
                 message <- reminder.message
