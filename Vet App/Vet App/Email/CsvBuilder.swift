@@ -31,7 +31,6 @@ class CsvBuilder {
     func buildCsv(entries: [ReportEntry], templates: [ReportTemplateField]) -> String {
         var csv = ""
         
-        // Header
         let header = templates.map {
             /*if let units = $0.units, !units.isEmpty {
                 "\($0.name) (\(units))"

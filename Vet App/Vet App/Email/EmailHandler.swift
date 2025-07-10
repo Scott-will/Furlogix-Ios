@@ -18,25 +18,18 @@ class EmailHandler: NSObject, MFMailComposeViewControllerDelegate, EmailHandlerP
         self.userRepository = userRepository
     }
     
-    // MARK: - Send email using UIActivityViewController (closest to Intent with EXTRA_STREAM)
     func createAndSendEmail(wrapper: EmailWrapper, presentingController: UIViewController) {
         let activityItems: [Any] = [wrapper.subject, wrapper.bodyText, wrapper.fileURL]
         let activityVC = UIActivityViewController(activityItems: activityItems, applicationActivities: nil)
         
-        // Optionally exclude certain activity types if you only want mail
-        // activityVC.excludedActivityTypes = [.postToFacebook, .postToTwitter, .saveToCameraRoll, .assignToContact]
         
-        // Present
-        presentingController.present(activityVC, animated: true)
-        
-        // Simulate your repository update
-        Task {
-            let userId = await userRepository.getCurrentUser()?.id
-            //await userRepository.setPendingReportsForUser(userId: userId)
+        Task { @MainActor in
+            presentingController.present(activityVC, animated: true)
+
+            _ = userRepository.getCurrentUser()?.id
         }
     }
     
-    // MARK: - Alternative: Using MFMailComposeViewController (dedicated mail UI)
     func createAndSendEmailWithMF(wrapper: EmailWrapper, presentingController: UIViewController) {
         guard MFMailComposeViewController.canSendMail() else {
             print("No mail accounts configured")
@@ -55,7 +48,6 @@ class EmailHandler: NSObject, MFMailComposeViewControllerDelegate, EmailHandlerP
         
         presentingController.present(mailVC, animated: true)
         
-        // Update user repository
         Task {
             let userId = await userRepository.getCurrentUser()?.id
             //await userRepository.setPendingReportsForUser(userId: userId)

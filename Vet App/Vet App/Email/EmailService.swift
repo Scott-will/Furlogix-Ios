@@ -48,10 +48,8 @@ class EmailService{
             return
         }
         
-        // Get user email
         let email = userRepository.getCurrentUser()?.email ?? ""
         
-        // Create email wrapper
         let emailWrapper = EmailWrapper(
             toEmailAddress: email,
             subject: "Pet Reports",
@@ -59,16 +57,13 @@ class EmailService{
             fileURL: fileURL
         )
         
-        // Send email
         let emailHandler = EmailHandler(userRepository: userRepository)
         emailHandler.createAndSendEmail(wrapper: emailWrapper, presentingController: presentingController)
         
-        // Update entries
         for i in entries!.indices {
             entries![i].sent = true
         }
         
-        // Update report last sent time
         let formatter = DateFormatter()
         formatter.dateFormat = "yyyy-MM-dd HH:mm:ss"
         //report.lastSentTime = formatter.string(from: Date())
