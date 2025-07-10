@@ -26,6 +26,7 @@ class ReportEntryViewModel : ObservableObject, ErrorMessageProvider {
         AppLogger.debug("Loading report entries for report: \(reportId)")
         let result = self.reportEntryRepositoryProtocol.GetAllEntriesForReport(reportId: reportId)
         if(result == nil){
+            self.errorMessage = "Failed to load entries for report: \(reportId)"
             AppLogger.error("Failed to load entries for report: \(reportId)")
             return
         }
@@ -35,6 +36,10 @@ class ReportEntryViewModel : ObservableObject, ErrorMessageProvider {
     
     func insertReportEntry(entryValues : [Int64:String], reportId : Int64, timestamp: String) -> Bool{
         var entries : [ReportEntry] = []
+        if(timestamp.isEmpty){
+            self.errorMessage = "Timestamp cannot be empty"
+            return false
+        }
         entryValues.forEach{item in
             let entry = ReportEntry(id: -1, value: item.value, reportId: reportId, templateId: item.key, timestamp: timestamp, sent: false)
             entries.append(entry)
@@ -51,7 +56,7 @@ class ReportEntryViewModel : ObservableObject, ErrorMessageProvider {
         return true
     }
     
-    public func loadGroupedEntries(){
+    private func loadGroupedEntries(){
         let groupedEntries = Dictionary(grouping: self.reportEntryList, by: { $0.timestamp })
         AppLogger.debug(String(groupedEntries.count))
         self.groupedEntries = groupedEntries

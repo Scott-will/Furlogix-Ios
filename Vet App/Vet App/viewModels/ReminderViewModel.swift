@@ -31,17 +31,19 @@ class ReminderViewModel : ObservableObject, ErrorMessageProvider{
         return result
     }
     
-    public func getReminders(){
+    public func getReminders() -> Bool{
         self.reminders = self.reminderRepository.getAllReminders()
         if(self.reminders.isEmpty){
             self.errorMessage = "No reminders found"
+            return false
         }
         else{
             self.errorMessage = nil
         }
+        return true
     }
     
-    public func deleteReminder(reminderId : Int64){
+    public func deleteReminder(reminderId : Int64) -> Bool{
         let result = self.reminderRepository.deleteReminder(reminderId: reminderId)
         if(!result){
             self.errorMessage = "Failed to delete reminder"
@@ -49,6 +51,7 @@ class ReminderViewModel : ObservableObject, ErrorMessageProvider{
         else{
             self.errorMessage = nil
         }
+        return result
     }
     
     private func IsValidReminder(reminder : Reminder) -> Bool {
