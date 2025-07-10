@@ -67,9 +67,9 @@ struct ReportsReminder: View {
                 formatter.dateStyle = .short
                 formatter.timeStyle = .short
                 let startTimeString = formatter.string(from: selectedDateTime)
-                let reminder = Reminder(id : -1, frequency: recurrenceOption, startTime: startTimeString, title: reminderTitle, message: reminderText)
+                let reminder = Reminder(id : -1, frequency: recurrenceOption, startTime: startTimeString, title: reminderTitle, message: reminderText, requestId: UUID().uuidString)
                 remindersViewModel.insertReminder(reminder: reminder)
-                dismiss() // Closes the sheet/dialog
+                dismiss() 
             }) {
                 Text("Schedule Reminder")
                     .frame(maxWidth: .infinity)

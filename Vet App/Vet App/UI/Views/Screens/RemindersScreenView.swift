@@ -17,14 +17,21 @@ struct RemindersScreenView : View{
                 Text("Reminders Screen")
                 List(remindersViewModel.reminders, id: \.id){
                     item in
-                    ReminderItem(data: item, onDeleteClick: {item in remindersViewModel.deleteReminder(reminderId: item.id)})
+                    ReminderItem(data: item, onDeleteClick: {item in remindersViewModel.deleteReminder(reminder: item)})
                 }
-                Button(action: {
-                    showAddReminder = true
-                }){
-                    Text("Add Reminder")
-                }.buttonStyle(AppButtonStyle())
+                if(remindersViewModel.permissionGranted){
+                    Button(action: {
+                        showAddReminder = true
+                    }){
+                        Text("Add Reminder")
+                    }.buttonStyle(AppButtonStyle())
+                }
+                else{
+                    Text("Permissions not granted")
+                }
+                
             }.onAppear{
+                remindersViewModel.requestPermissions()
                 remindersViewModel.getReminders()
             }.sheet(isPresented: $showAddReminder) {
                 ReportsReminder()

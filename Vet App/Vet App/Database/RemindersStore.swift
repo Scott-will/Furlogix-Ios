@@ -20,6 +20,7 @@ class RemindersStore{
     private let startTime = SQLite.Expression<String>("startTime")
     private let title = SQLite.Expression<String>("title")
     private let message = SQLite.Expression<String>("Message")
+    private let requestId = SQLite.Expression<String>("requestId")
     
     static let instance = RemindersStore()
     
@@ -54,6 +55,7 @@ class RemindersStore{
                 table.column(startTime)
                 table.column(title)
                 table.column(message)
+                table.column(requestId)
             })
             print("Table Created...")
         } catch {
@@ -73,7 +75,9 @@ class RemindersStore{
                     frequency: String(reminder[frequency]),
                     startTime:  String(reminder[startTime]),
                     title: String(reminder[title]),
-                    message: String(reminder[message])))
+                    message: String(reminder[message]),
+                    requestId: String(reminder[requestId])
+                ))
             }
         }
         catch {
@@ -100,11 +104,11 @@ class RemindersStore{
         }
         do {
             let rowID = try database.run(reminders.insert(
-                id <- reminder.id,
                 frequency <- reminder.frequency,
                 startTime <- reminder.startTime,
                 title <- reminder.title,
-                message <- reminder.message
+                message <- reminder.message,
+                requestId <- reminder.requestId
             ))
             return rowID
         }

@@ -6,9 +6,12 @@
 //
 
 class ReminderRepository : ReminderRepositoryProtocol{
-    func insertReminder(reminder: Reminder) -> Bool {
+    func insertReminder(reminder: Reminder) -> Int64 {
         let result = RemindersStore.instance.insertReminder(reminder: reminder)
-        return result == -1
+        if(result == nil){
+            return -1
+        }
+        return result ?? -1
     }
     
     func getAllReminders() -> [Reminder] {

@@ -11,25 +11,39 @@ class ReminderViewModel : ObservableObject, ErrorMessageProvider{
     @Published var errorMessage: String? = nil
     private var reminderRepository: ReminderRepositoryProtocol
     
+    private var notificationService: UserNotificationServiceProtocol
+    
     @Published var reminders: [Reminder] = []
+    @Published var permissionGranted = false
     
-    init(remindersRepository : ReminderRepositoryProtocol = DIContainer.shared.resolve(type: ReminderRepositoryProtocol.self)!) {
+    init(remindersRepository : ReminderRepositoryProtocol = DIContainer.shared.resolve(type: ReminderRepositoryProtocol.self)!,
+         userNotificationService : UserNotificationServiceProtocol = DIContainer.shared.resolve(type: UserNotificationServiceProtocol.self)!) {
         self.reminderRepository = remindersRepository
+        self.notificationService = userNotificationService
     }
     
-    public func insertReminder(reminder: Reminder) -> Bool {
-        if(!IsValidReminder(reminder: reminder)){
-            return false
+    public func insertReminder(reminder: Reminder) {
+        guard IsValidReminder(reminder: reminder) else {
+            self.errorMessage = "Invalid reminder"
+            return
         }
-        let result = self.reminderRepository.insertReminder(reminder: reminder)
-        if(!result){
+
+        let insertResult = self.reminderRepository.insertReminder(reminder: reminder)
+        if (insertResult == -1) {
             self.errorMessage = "Failed to insert reminder"
+            return
         }
-        else{
-            self.errorMessage = nil
+
+        self.notificationService.scheduleReminderNotification(reminder: reminder) { success in
+            if !success {
+                self.reminderRepository.deleteReminder(reminderId: reminder.id)
+                self.errorMessage = "Failed to schedule reminder notification"
+            } else {
+                self.errorMessage = nil
+            }
         }
-        return result
     }
+
     
     public func getReminders() -> Bool{
         self.reminders = self.reminderRepository.getAllReminders()
@@ -43,16 +57,29 @@ class ReminderViewModel : ObservableObject, ErrorMessageProvider{
         return true
     }
     
-    public func deleteReminder(reminderId : Int64) -> Bool{
-        let result = self.reminderRepository.deleteReminder(reminderId: reminderId)
+    public func deleteReminder(reminder : Reminder) -> Bool{
+        let result = self.reminderRepository.deleteReminder(reminderId: reminder.id)
         if(!result){
             self.errorMessage = "Failed to delete reminder"
         }
         else{
+            self.notificationService.cancelReminderNotificationService(reminderRequestId: reminder.requestId)
             self.errorMessage = nil
         }
         return result
     }
+    
+    public func requestPermissions() {
+        self.notificationService.requestNotificationPermission { result in
+            if !result {
+                self.errorMessage = "Permissions denied"
+            } else {
+                self.errorMessage = nil
+            }
+            self.permissionGranted = result
+        }
+    }
+
     
     private func IsValidReminder(reminder : Reminder) -> Bool {
         if(reminder.title.isEmpty){

@@ -10,4 +10,5 @@ struct Reminder: Decodable {
     var startTime: String
     var title: String
     var message: String
+    var requestId : String
 }
