@@ -7,9 +7,9 @@
 
 struct ReportEntry : Decodable, Identifiable{
     let id : Int64
-    let value : String
-    let reportId : Int64
-    let templateId : Int64
-    let timestamp : String
-    let sent : Bool
+    var value : String
+    var reportId : Int64
+    var templateId : Int64
+    var timestamp : String
+    var sent : Bool
 }

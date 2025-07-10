@@ -22,7 +22,10 @@ struct ReportEntryHistoryScreenView : View{
                 Text("Add Data")
             }.buttonStyle(AppButtonStyle())
             Button(action:{
-                
+                if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                       let rootVC = scene.windows.first?.rootViewController {
+                        reportViewModel.sendReport(id: reportId, presentingController: rootVC)
+                    }
             }){
                 Text("Send Report")
             }.buttonStyle(AppButtonStyle())
