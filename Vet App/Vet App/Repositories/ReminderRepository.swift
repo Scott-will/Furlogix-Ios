@@ -6,15 +6,22 @@
 //
 
 class ReminderRepository : ReminderRepositoryProtocol{
+    func insertReminder(reminder: Reminder) -> Bool {
+        let result = RemindersStore.instance.insertReminder(reminder: reminder)
+        return result == -1
+    }
+    
     func getAllReminders() -> [Reminder] {
-        return []
+        let result = RemindersStore.instance.getAllReminders()
+        if(result == nil){
+            AppLogger.error("Failed to retrieve reminders from store")
+            return []
+        }
+        return result ?? []
     }
     
-    func insertReminder() -> Bool {
-        return true
-    }
-    
-    func deleteReminder() -> Bool {
+    func deleteReminder(reminderId : Int64) -> Bool {
+        RemindersStore.instance.deleteReminder(reminderId: reminderId)
         return true
     }
 }

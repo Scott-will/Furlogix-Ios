@@ -7,7 +7,6 @@
 struct Reminder: Decodable {
     let id: Int64
     var frequency: String
-    var type: String
     var startTime: String
     var title: String
     var message: String

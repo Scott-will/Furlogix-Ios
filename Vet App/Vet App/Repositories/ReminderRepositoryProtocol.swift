@@ -8,8 +8,8 @@
 protocol ReminderRepositoryProtocol {
     func getAllReminders() -> [Reminder]
     
-    func insertReminder() -> Bool
+    func insertReminder(reminder : Reminder) -> Bool
     
-    func deleteReminder() -> Bool
+    func deleteReminder(reminderId : Int64) -> Bool
     
 }
