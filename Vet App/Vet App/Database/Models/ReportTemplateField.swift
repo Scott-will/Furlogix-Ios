@@ -6,9 +6,8 @@
 //
 
 struct ReportTemplateField : Decodable{
-    let id : Int64
-    let reportId : Int64
-    let name : String
-    let favourite : Bool
-    let fieldType : FieldType
+    var id : Int64 = 0
+    var reportId : Int64
+    var name : String
+    var fieldType : FieldType
 }

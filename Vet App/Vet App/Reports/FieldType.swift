@@ -5,8 +5,10 @@
 //  Created by Scott Williams on 2025-02-15.
 //
 
-enum FieldType : Int, Codable{
+enum FieldType : Int, Codable, CaseIterable, Identifiable{
     case Text
     case Number
     case Boolean
+    
+    var id: Int { self.rawValue }
 }

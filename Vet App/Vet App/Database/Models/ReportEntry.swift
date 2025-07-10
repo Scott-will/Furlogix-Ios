@@ -5,7 +5,7 @@
 //  Created by Scott Williams on 2025-02-15.
 //
 
-struct ReportEntry : Decodable{
+struct ReportEntry : Decodable, Identifiable{
     let id : Int64
     let value : String
     let reportId : Int64

@@ -14,7 +14,7 @@ protocol ReportEntryRepositoryProtocol{
     
     func GetAllEntriesForReportTemplate(templateId : Int64) -> [ReportEntry]?
     
-    func UpdateReportEntry(entry: ReportEntry) -> Int64?
+    func UpdateReportEntry(entry: ReportEntry) -> Bool
     
     func DeleteReportEntry(entryId: Int64) -> Bool
 }

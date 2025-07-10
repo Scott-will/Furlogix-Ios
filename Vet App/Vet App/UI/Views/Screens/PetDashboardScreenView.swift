@@ -17,7 +17,7 @@ struct PetDashbaordScreenView : View{
                   Text("\(petvViewModel.currentpet?.name ?? "Pet") Dashboard")
                     .buttonStyle(AppButtonStyle())
                     Button("Reports"){
-                        onNavigate(.reports(petId: petId))
+                        onNavigate(.manageReports(petId: petId))
                     }
                     .buttonStyle(AppButtonStyle())
                     Button("Setup Reminders"){

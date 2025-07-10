@@ -36,9 +36,9 @@ struct RootView: View {
                                 case .profile(let userId):
                                     ProfileScreenView()
                                 case .reportEntry(let reportId):
-                                    ReportEntryScreenView()
+                                    ReportEntryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .manageReports(let petId):
-                                    ManageReportsScreenView(petId : petId)
+                                    ManageReportsScreenView(onNavigate: {r in routeManager.onNavigate(r)}, petId : petId)
                                 case .reports(let petId):
                                     ReportsScreenView()
                                 case .addPet(let userId):
@@ -48,11 +48,11 @@ struct RootView: View {
                                 case .reminders:
                                     RemindersScreenView()
                                 case .reportEntryHistory(let reportId):
-                                    ReportEntryHistoryScreenView()
+                                    ReportEntryHistoryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .pets(let userId):
                                     PetsScreenView()
-                                case .editReport:
-                                    EditReportScreenView()
+                                case .editReport(let reportId):
+                                    EditReportScreenView(reportId: reportId)
                                 default:
                                     Text("Unknown route")
                                 }

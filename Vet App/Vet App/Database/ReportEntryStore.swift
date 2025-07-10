@@ -58,6 +58,7 @@ class ReportEntryStore{
                 table.column(timestamp)
                 table.column(reportId)
                 table.column(templateId)
+                table.column(sent)
                 table.foreignKey(reportId, references: ReportStore.instance.GetTable(), ReportStore.instance.GetPrimaryKeyColumn())
                 table.foreignKey(templateId, references: ReportTemplateStore.instance.GetTable(), ReportTemplateStore.instance.GetPrimaryKeyColumn())
             })
