@@ -16,9 +16,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "61D06D812D068843007605AE"
-               BuildableName = "Vet App.app"
-               BlueprintName = "Vet App"
-               ReferencedContainer = "container:Vet App.xcodeproj">
+               BuildableName = "Furlogix.app"
+               BlueprintName = "Furlogix"
+               ReferencedContainer = "container:Furlogix.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -36,9 +36,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "61D06D962D068845007605AE"
-               BuildableName = "Vet AppTests.xctest"
-               BlueprintName = "Vet AppTests"
-               ReferencedContainer = "container:Vet App.xcodeproj">
+               BuildableName = "FurlogixTests.xctest"
+               BlueprintName = "FurlogixTests"
+               ReferencedContainer = "container:Furlogix.xcodeproj">
             </BuildableReference>
          </TestableReference>
          <TestableReference
@@ -47,9 +47,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "61D06DA02D068845007605AE"
-               BuildableName = "Vet AppUITests.xctest"
-               BlueprintName = "Vet AppUITests"
-               ReferencedContainer = "container:Vet App.xcodeproj">
+               BuildableName = "FurlogixUITests.xctest"
+               BlueprintName = "FurlogixUITests"
+               ReferencedContainer = "container:Furlogix.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -69,9 +69,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "61D06D812D068843007605AE"
-            BuildableName = "Vet App.app"
-            BlueprintName = "Vet App"
-            ReferencedContainer = "container:Vet App.xcodeproj">
+            BuildableName = "Furlogix.app"
+            BlueprintName = "Furlogix"
+            ReferencedContainer = "container:Furlogix.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
       <CommandLineArguments>
@@ -92,9 +92,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "61D06D812D068843007605AE"
-            BuildableName = "Vet App.app"
-            BlueprintName = "Vet App"
-            ReferencedContainer = "container:Vet App.xcodeproj">
+            BuildableName = "Furlogix.app"
+            BlueprintName = "Furlogix"
+            ReferencedContainer = "container:Furlogix.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>
