@@ -33,7 +33,11 @@ struct ManageReportsScreenView : View{
                             reportViewModel.GetReportsForPet(petId: petId)
                         },
                         onSendClick: {
-                            _ in reportViewModel.SendReport(id: item.id)
+                            _ in 
+                            if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
+                                   let rootVC = scene.windows.first?.rootViewController {
+                                reportViewModel.sendReport(id: item.id, presentingController: rootVC)
+                                }
                         }
                     )
                 }

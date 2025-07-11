@@ -5,6 +5,7 @@
 //  Created by Scott Williams on 2025-02-17.
 //
 import Foundation
+import MessageUI
 
 class ReportViewModel : ObservableObject, ErrorMessageProvider{
     @Published var errorMessage : String? = nil
@@ -14,6 +15,7 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
     @Published var currentReport : Report? = nil
     
     private let reportRepository : ReportRepositoryProtocol
+    
     
     init(reportRepository : ReportRepositoryProtocol = DIContainer.shared.resolve(type: ReportRepositoryProtocol.self)!){
         self.reportRepository = reportRepository
@@ -55,9 +57,12 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
         return result;
     }
     
-    public func SendReport(id : Int64){
-        
-    }
+    public func sendReport(id: Int64, presentingController: UIViewController) {
+            let emailService = EmailService()
+            Task {
+                await emailService.gatherReportData(reportId: id, presentingController: presentingController)
+            }
+        }
     
     public func loadCurrentReport(reportId : Int64){
         self.currentReport = self.reportsForPet.first{ $0.id == reportId}
