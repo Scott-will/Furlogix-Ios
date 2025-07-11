@@ -11,7 +11,36 @@ class MockReportEntryRepository: ReportEntryRepositoryProtocol {
     var shouldReturnNilOnGet = false
     var shouldFailInsert = false
     var fakeEntries: [ReportEntry] = []
-
+    
+    var deleteSentReportEntriesAsyncCalled = false
+    var deleteSentReportEntriesSyncCalled = false
+    var deleteshouldSucceed = true
+    var deleteshouldDelay = false
+    var errorToThrow: Error?
+    
+    func deleteSentReportEntries() throws {
+        deleteSentReportEntriesSyncCalled = true
+        
+        if deleteshouldDelay {
+            Thread.sleep(forTimeInterval: 2.0)
+        }
+        
+        if !deleteshouldSucceed {
+            throw errorToThrow ?? ReportCleanupError.databaseError
+        }
+    }
+    
+    func deleteSentReportEntries() async throws {
+        deleteSentReportEntriesAsyncCalled = true
+        
+        if deleteshouldDelay {
+            try await Task.sleep(nanoseconds: 2_000_000_000) // 2 seconds
+        }
+        
+        if !deleteshouldSucceed {
+            throw errorToThrow ?? ReportCleanupError.databaseError
+        }
+    }
     
     func DeleteSentReportEntries() -> Bool {
         return true
@@ -44,3 +73,5 @@ class MockReportEntryRepository: ReportEntryRepositoryProtocol {
         return true
     }
 }
+
+
