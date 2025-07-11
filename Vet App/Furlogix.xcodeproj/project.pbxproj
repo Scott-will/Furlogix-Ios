@@ -28,25 +28,25 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		61D06D822D068843007605AE /* Vet App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Vet App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
-		61D06D972D068845007605AE /* Vet AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Vet AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		61D06DA12D068845007605AE /* Vet AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Vet AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		61D06D822D068843007605AE /* Furlogix.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Furlogix.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		61D06D972D068845007605AE /* FurlogixTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FurlogixTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		61D06DA12D068845007605AE /* FurlogixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FurlogixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
-		61D06D842D068843007605AE /* Vet App */ = {
+		61D06D842D068843007605AE /* Furlogix */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Vet App";
+			path = Furlogix;
 			sourceTree = "<group>";
 		};
-		61D06D9A2D068845007605AE /* Vet AppTests */ = {
+		61D06D9A2D068845007605AE /* Furlogix_Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Vet AppTests";
+			path = Furlogix_Tests;
 			sourceTree = "<group>";
 		};
-		61D06DA42D068845007605AE /* Vet AppUITests */ = {
+		61D06DA42D068845007605AE /* Furlogix_UITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			path = "Vet AppUITests";
+			path = Furlogix_UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -80,9 +80,9 @@
 		61D06D792D068843007605AE = {
 			isa = PBXGroup;
 			children = (
-				61D06D842D068843007605AE /* Vet App */,
-				61D06D9A2D068845007605AE /* Vet AppTests */,
-				61D06DA42D068845007605AE /* Vet AppUITests */,
+				61D06D842D068843007605AE /* Furlogix */,
+				61D06D9A2D068845007605AE /* Furlogix_Tests */,
+				61D06DA42D068845007605AE /* Furlogix_UITests */,
 				61D06D832D068843007605AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -90,9 +90,9 @@
 		61D06D832D068843007605AE /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				61D06D822D068843007605AE /* Vet App.app */,
-				61D06D972D068845007605AE /* Vet AppTests.xctest */,
-				61D06DA12D068845007605AE /* Vet AppUITests.xctest */,
+				61D06D822D068843007605AE /* Furlogix.app */,
+				61D06D972D068845007605AE /* FurlogixTests.xctest */,
+				61D06DA12D068845007605AE /* FurlogixUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -100,9 +100,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		61D06D812D068843007605AE /* Vet App */ = {
+		61D06D812D068843007605AE /* Furlogix */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61D06DAB2D068845007605AE /* Build configuration list for PBXNativeTarget "Vet App" */;
+			buildConfigurationList = 61D06DAB2D068845007605AE /* Build configuration list for PBXNativeTarget "Furlogix" */;
 			buildPhases = (
 				61D06D7E2D068843007605AE /* Sources */,
 				61D06D7F2D068843007605AE /* Frameworks */,
@@ -113,19 +113,19 @@
 			dependencies = (
 			);
 			fileSystemSynchronizedGroups = (
-				61D06D842D068843007605AE /* Vet App */,
+				61D06D842D068843007605AE /* Furlogix */,
 			);
-			name = "Vet App";
+			name = Furlogix;
 			packageProductDependencies = (
 				89EA72AC2E1787230087AAE4 /* SQLite */,
 			);
 			productName = "Vet App";
-			productReference = 61D06D822D068843007605AE /* Vet App.app */;
+			productReference = 61D06D822D068843007605AE /* Furlogix.app */;
 			productType = "com.apple.product-type.application";
 		};
-		61D06D962D068845007605AE /* Vet AppTests */ = {
+		61D06D962D068845007605AE /* FurlogixTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61D06DAE2D068845007605AE /* Build configuration list for PBXNativeTarget "Vet AppTests" */;
+			buildConfigurationList = 61D06DAE2D068845007605AE /* Build configuration list for PBXNativeTarget "FurlogixTests" */;
 			buildPhases = (
 				61D06D932D068845007605AE /* Sources */,
 				61D06D942D068845007605AE /* Frameworks */,
@@ -137,18 +137,18 @@
 				61D06D992D068845007605AE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				61D06D9A2D068845007605AE /* Vet AppTests */,
+				61D06D9A2D068845007605AE /* Furlogix_Tests */,
 			);
-			name = "Vet AppTests";
+			name = FurlogixTests;
 			packageProductDependencies = (
 			);
 			productName = "Vet AppTests";
-			productReference = 61D06D972D068845007605AE /* Vet AppTests.xctest */;
+			productReference = 61D06D972D068845007605AE /* FurlogixTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		61D06DA02D068845007605AE /* Vet AppUITests */ = {
+		61D06DA02D068845007605AE /* FurlogixUITests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 61D06DB12D068845007605AE /* Build configuration list for PBXNativeTarget "Vet AppUITests" */;
+			buildConfigurationList = 61D06DB12D068845007605AE /* Build configuration list for PBXNativeTarget "FurlogixUITests" */;
 			buildPhases = (
 				61D06D9D2D068845007605AE /* Sources */,
 				61D06D9E2D068845007605AE /* Frameworks */,
@@ -160,13 +160,13 @@
 				61D06DA32D068845007605AE /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
-				61D06DA42D068845007605AE /* Vet AppUITests */,
+				61D06DA42D068845007605AE /* Furlogix_UITests */,
 			);
-			name = "Vet AppUITests";
+			name = FurlogixUITests;
 			packageProductDependencies = (
 			);
 			productName = "Vet AppUITests";
-			productReference = 61D06DA12D068845007605AE /* Vet AppUITests.xctest */;
+			productReference = 61D06DA12D068845007605AE /* FurlogixUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
 /* End PBXNativeTarget section */
@@ -192,7 +192,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 61D06D7D2D068843007605AE /* Build configuration list for PBXProject "Vet App" */;
+			buildConfigurationList = 61D06D7D2D068843007605AE /* Build configuration list for PBXProject "Furlogix" */;
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -211,9 +211,9 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				61D06D812D068843007605AE /* Vet App */,
-				61D06D962D068845007605AE /* Vet AppTests */,
-				61D06DA02D068845007605AE /* Vet AppUITests */,
+				61D06D812D068843007605AE /* Furlogix */,
+				61D06D962D068845007605AE /* FurlogixTests */,
+				61D06DA02D068845007605AE /* FurlogixUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -269,12 +269,12 @@
 /* Begin PBXTargetDependency section */
 		61D06D992D068845007605AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 61D06D812D068843007605AE /* Vet App */;
+			target = 61D06D812D068843007605AE /* Furlogix */;
 			targetProxy = 61D06D982D068845007605AE /* PBXContainerItemProxy */;
 		};
 		61D06DA32D068845007605AE /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 61D06D812D068843007605AE /* Vet App */;
+			target = 61D06D812D068843007605AE /* Furlogix */;
 			targetProxy = 61D06DA22D068845007605AE /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -408,7 +408,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Vet App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Furlogix/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -436,7 +436,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_ASSET_PATHS = "\"Vet App/Preview Content\"";
+				DEVELOPMENT_ASSET_PATHS = "\"Furlogix/Preview Content\"";
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
@@ -471,7 +471,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vet App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vet App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Furlogix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Furlogix";
 			};
 			name = Debug;
 		};
@@ -489,7 +489,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Vet App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Vet App";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Furlogix.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/Furlogix";
 			};
 			name = Release;
 		};
@@ -528,7 +528,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		61D06D7D2D068843007605AE /* Build configuration list for PBXProject "Vet App" */ = {
+		61D06D7D2D068843007605AE /* Build configuration list for PBXProject "Furlogix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61D06DA92D068845007605AE /* Debug */,
@@ -537,7 +537,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61D06DAB2D068845007605AE /* Build configuration list for PBXNativeTarget "Vet App" */ = {
+		61D06DAB2D068845007605AE /* Build configuration list for PBXNativeTarget "Furlogix" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61D06DAC2D068845007605AE /* Debug */,
@@ -546,7 +546,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61D06DAE2D068845007605AE /* Build configuration list for PBXNativeTarget "Vet AppTests" */ = {
+		61D06DAE2D068845007605AE /* Build configuration list for PBXNativeTarget "FurlogixTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61D06DAF2D068845007605AE /* Debug */,
@@ -555,7 +555,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		61D06DB12D068845007605AE /* Build configuration list for PBXNativeTarget "Vet AppUITests" */ = {
+		61D06DB12D068845007605AE /* Build configuration list for PBXNativeTarget "FurlogixUITests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				61D06DB22D068845007605AE /* Debug */,
