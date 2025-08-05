@@ -28,17 +28,17 @@ struct RootView: View {
                             .navigationDestination(for: AppRoute.self) { route in
                                 switch route {
                                 case .dashboard(let userId):
-                                    DashbaordScreenView(onNavigate: {r in routeManager.onNavigate(r)})
+                                    DashboardScreenView(userId: 1, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .reportsTemplate(let reportId, let reportName):
                                     ReportTemplateScreenView()
                                 case .petDashboard(let petId):
-                                    PetDashbaordScreenView(petId: petId, onNavigate: {r in routeManager.onNavigate(r)})
+                                    PetDashboardScreenView(petId: petId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .profile(let userId):
                                     ProfileScreenView()
                                 case .reportEntry(let reportId):
                                     ReportEntryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .manageReports(let petId):
-                                    ManageReportsScreenView(onNavigate: {r in routeManager.onNavigate(r)}, petId : petId)
+                                    ManageReportsScreenView(petId : petId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .reports(let petId):
                                     ReportsScreenView()
                                 case .addPet(let userId):
@@ -71,7 +71,7 @@ struct RootView: View {
     @ViewBuilder
     private func contentView() -> some View {
         if routeManager.path.isEmpty {
-            DashbaordScreenView(onNavigate: { r in routeManager.onNavigate(r) })
+            DashboardScreenView(userId: 1, onNavigate: { r in routeManager.onNavigate(r) })
         } else {
             EmptyView()
         }

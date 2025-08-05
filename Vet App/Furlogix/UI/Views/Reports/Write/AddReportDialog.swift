@@ -6,31 +6,37 @@
 //
 import SwiftUI
 
-struct AddReportDialog : View{
-    @Binding var isPresented : Bool
-    @Binding var reportName : String
-    var petId : Int64
-    var onSave : (String, Int64) -> Int64?
+struct AddReportDialogView: View {
+    @Binding var currentLabel: String
+    let onSave: (Report) -> Void
+    let onDismiss: () -> Void
+    @State private var reportName = ""
     
-    var body : some View{
-        VStack(spacing: 20){
-            CustomTextField(placeholder: "Report Name", text: $reportName)
-            HStack{
-                Button("Cancel") {
-                    isPresented = false
+    var body: some View {
+        NavigationView {
+            VStack(spacing: 24) {
+                VStack(alignment: .leading, spacing: 8) {
+                    Text("Report Name")
+                        .font(.system(size: 16, weight: .semibold))
+                        .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
+                    
+                    TextField("Enter report name", text: $reportName)
+                        .textFieldStyle(RoundedBorderTextFieldStyle())
                 }
-                .padding()
                 
                 Spacer()
-                
-                Button("Save") {
-                    onSave(reportName, petId)
-                    isPresented = false
-                }
-                .padding()
-                .disabled(reportName.isEmpty)
             }
-        }.padding()
-            
+            .padding(20)
+            .navigationTitle("Add Report")
+            .navigationBarTitleDisplayMode(.inline)
+            .navigationBarItems(
+                leading: Button("Cancel") { onDismiss() },
+                trailing: Button("Save") {
+                    let newItem = Report(id: 0, name: reportName, petId: 1)
+                    onSave(newItem)
+                }
+                .disabled(reportName.isEmpty)
+            )
+        }
     }
 }

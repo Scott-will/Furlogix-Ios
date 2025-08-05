@@ -10,7 +10,7 @@ import SwiftUI
 struct ReportsReminder: View {
     @Environment(\.dismiss) var dismiss // Use if using .sheet
 
-    @ObservedObject var remindersViewModel: ReminderViewModel = ReminderViewModel()
+    @ObservedObject var remindersViewModel: ReminderViewModel
 
     @State private var selectedDateTime: Date = Date()
     @State private var recurrenceOption: String = "Once"
@@ -69,7 +69,8 @@ struct ReportsReminder: View {
                 let startTimeString = formatter.string(from: selectedDateTime)
                 let reminder = Reminder(id : -1, frequency: recurrenceOption, startTime: startTimeString, title: reminderTitle, message: reminderText, requestId: UUID().uuidString)
                 remindersViewModel.insertReminder(reminder: reminder)
-                dismiss() 
+                remindersViewModel.getReminders()
+                dismiss()
             }) {
                 Text("Schedule Reminder")
                     .frame(maxWidth: .infinity)

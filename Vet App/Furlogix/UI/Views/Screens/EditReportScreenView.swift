@@ -36,11 +36,25 @@ struct EditReportScreenView : View{
                 ReportTemplateItem(data: item,
                                    onDeleteClick: {
                     _ in reportTemplateViewModel.DeleteReportTemplate(templateId: item.id)
+                    reportTemplateViewModel.GetReportTemplateForReport(reportId: reportId)
                 },
                                    onUpdateClick:{
                     _ in reportTemplateViewModel.UpdateReportTemplate(template:item)
+                    reportTemplateViewModel.GetReportTemplateForReport(reportId: reportId)
                 }
                 )}
+            if newTemplateList.count != 0{
+                List(newTemplateList, id: \.id){ item in
+                    ReportTemplateItem(data: item,
+                                       onDeleteClick: {_ in
+                        newTemplateList.removeAll(where: { $0.id == item.id })
+
+                    },
+                                       onUpdateClick:{_ in 
+                        return
+                    }
+                    )}
+                }
             }.onAppear(){
                 reportTemplateViewModel.GetReportTemplateForReport(reportId: reportId)
             }
@@ -50,6 +64,7 @@ struct EditReportScreenView : View{
                         newTemplateList.append(newItem)
                         label = ""
                         selectedType = FieldType.allCases.first ?? .Text
+                        
                     },
                     currentLabel: label,
                     selectedType: selectedType,
