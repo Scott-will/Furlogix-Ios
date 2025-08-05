@@ -7,6 +7,6 @@
 
 struct Report : Decodable{
     let id : Int64
-    let name : String
+    var name : String
     let petId : Int64
 }

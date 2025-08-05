@@ -5,7 +5,7 @@
 //  Created by Scott Williams on 2025-02-15.
 //
 
-struct ReportTemplateField : Decodable{
+struct ReportTemplateField : Decodable, Identifiable{
     var id : Int64 = 0
     var reportId : Int64
     var name : String

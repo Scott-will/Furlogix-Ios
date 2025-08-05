@@ -11,4 +11,12 @@ enum FieldType : Int, Codable, CaseIterable, Identifiable{
     case Boolean
     
     var id: Int { self.rawValue }
+    
+    var displayName: String {
+            switch self {
+            case .Text: return "Text"
+            case .Number: return "Number"
+            case .Boolean: return "Boolean"
+            }
+        }
 }

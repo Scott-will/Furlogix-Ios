@@ -223,16 +223,16 @@ struct ManageReportsScreenView: View {
             ReportsListView(
                 dataList: filteredReports,
                 onSendClick: { report in
-                    reportViewModel.deleteReport(id: report.id)
-                },
-                onDeleteClick: { report in
-                    onNavigate(.editReport(reportId: report.id))
-                },
-                onEditClick: { report in
                     if let scene = UIApplication.shared.connectedScenes.first as? UIWindowScene,
                        let rootVC = scene.windows.first?.rootViewController {
                         reportViewModel.sendReport(id: report.id, presentingController: rootVC)
                     }
+                },
+                onDeleteClick: { report in
+                    reportViewModel.deleteReport(id: report.id)
+                },
+                onEditClick: { report in
+                    onNavigate(.editReport(reportId: report.id))
                 },
                 onClick: { report in
                     onNavigate(.reportEntryHistory(reportId: report.id))

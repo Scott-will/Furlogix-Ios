@@ -16,9 +16,15 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
     
     private let reportRepository : ReportRepositoryProtocol
     
+    private let reportEntryRepository : ReportEntryRepositoryProtocol
     
-    init(reportRepository : ReportRepositoryProtocol = DIContainer.shared.resolve(type: ReportRepositoryProtocol.self)!){
+    @Published var reportEntires :  [Int64: [ReportEntry]] = [:]
+    
+    
+    init(reportRepository : ReportRepositoryProtocol = DIContainer.shared.resolve(type: ReportRepositoryProtocol.self)!,
+         reportEntryRepository : ReportEntryRepositoryProtocol = DIContainer.shared.resolve(type: ReportEntryRepositoryProtocol.self)!){
         self.reportRepository = reportRepository
+        self.reportEntryRepository = reportEntryRepository
     }
     
     public func GetReportsForPet(petId : Int64){
@@ -66,6 +72,11 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
     
     public func loadCurrentReport(reportId : Int64){
         self.currentReport = self.reportsForPet.first{ $0.id == reportId}
+    }
+    
+    public func loadReportEntries(reportTemplateId : Int64){
+        var entries = reportEntryRepository.GetAllEntriesForReportTemplate(templateId: reportTemplateId)
+        self.reportEntires[reportTemplateId] = entries
     }
     
     private func IsReportValid(_ report : Report) -> Bool{
