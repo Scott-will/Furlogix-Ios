@@ -87,6 +87,7 @@ struct RemindersScreenView: View {
                 viewModel: viewModel,
                 onDismiss: {
                     addReminder = false
+                    viewModel.getReminders()
                 }
             )
         }
@@ -240,6 +241,7 @@ struct RemindersScreenView: View {
                 reminders: viewModel.reminders,
                 onDeleteClick: { reminder in
                     viewModel.deleteReminder(reminder: reminder)
+                    viewModel.getReminders()
                 }
             )
         }
@@ -422,6 +424,7 @@ struct AddReminderDialogView: View {
                                             message: reminderText,
                                             requestId: UUID().uuidString)
                     viewModel.insertReminder(reminder: reminder);
+                    onDismiss()
                 }) {
                     Text("Schedule Reminder")
                         .font(.system(size: 16, weight: .semibold))

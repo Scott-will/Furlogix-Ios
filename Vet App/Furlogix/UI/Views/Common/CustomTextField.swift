@@ -7,24 +7,24 @@
 // Reusable Custom TextField Component
 
 import SwiftUI
-
 struct CustomTextField: View {
-    let placeholder: String
+    var icon: String
+    var placeholder: String
     @Binding var text: String
-    var isSecure: Bool = false
+    var keyboardType: UIKeyboardType = .default
     
     var body: some View {
-        if isSecure {
-            SecureField(placeholder, text: $text)
-                .padding()
-                .background(Color(red: 246 / 255, green: 246 / 255, blue: 246 / 255))
-                .cornerRadius(8)
-        } else {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(Color.gray)
+                .frame(width: 20)
             TextField(placeholder, text: $text)
-                .padding()
-                .background(Color(red: 246 / 255, green: 246 / 255, blue: 246 / 255))
-                .cornerRadius(8)
+                .keyboardType(keyboardType)
+                .font(.system(size: 16))
         }
+        .padding(16)
+        .background(Color.white)
+        .overlay(RoundedRectangle(cornerRadius: 16).stroke(Color(red: 0.89, green: 0.91, blue: 0.94), lineWidth: 1))
+        .cornerRadius(16)
     }
 }
-

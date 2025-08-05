@@ -34,7 +34,7 @@ struct RootView: View {
                                 case .petDashboard(let petId):
                                     PetDashboardScreenView(petId: petId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .profile(let userId):
-                                    ProfileScreenView()
+                                    ProfileScreenView(onNavigate: {r in routeManager.onNavigate(r)}, userId: 1)
                                 case .reportEntry(let reportId):
                                     ReportEntryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .manageReports(let petId):
@@ -50,7 +50,7 @@ struct RootView: View {
                                 case .reportEntryHistory(let reportId):
                                     ReportEntryHistoryScreenView(reportId: reportId, onNavigate: {r in routeManager.onNavigate(r)})
                                 case .pets(let userId):
-                                    PetsScreenView()
+                                    PetsScreenView(onNavigate: {r in routeManager.onNavigate(r)}, userId: 1)
                                 case .editReport(let reportId):
                                     EditReportScreenView(reportId: reportId)
                                 default:

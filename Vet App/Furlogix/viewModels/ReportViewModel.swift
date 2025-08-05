@@ -74,9 +74,17 @@ class ReportViewModel : ObservableObject, ErrorMessageProvider{
         self.currentReport = self.reportsForPet.first{ $0.id == reportId}
     }
     
+    public func GetReportById(reportId : Int64) -> Report?{
+        return self.reportRepository.GetReportById(reportId: reportId)
+    }
+    
     public func loadReportEntries(reportTemplateId : Int64){
         var entries = reportEntryRepository.GetAllEntriesForReportTemplate(templateId: reportTemplateId)
         self.reportEntires[reportTemplateId] = entries
+    }
+    
+    public func updateReport(report : Report){
+        self.reportRepository.UpdateReport(report: report)
     }
     
     private func IsReportValid(_ report : Report) -> Bool{

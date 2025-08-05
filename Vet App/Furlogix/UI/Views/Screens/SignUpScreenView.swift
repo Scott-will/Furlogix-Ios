@@ -21,11 +21,11 @@ struct SignUpScreenView: View {
                     .fontWeight(.bold)
                     .padding(.bottom, 20)
                 
-                CustomTextField(placeholder: "First Name", text: $userViewModel.name)
-                CustomTextField(placeholder: "Last Name", text: $userViewModel.surName)
-                CustomTextField(placeholder: "Email", text: $userViewModel.email)
-                CustomTextField(placeholder: "Pet Name", text: $userViewModel.petName)
-                CustomTextField(placeholder: "Pet type", text: $userViewModel.petType)
+                CustomTextField(icon: "", placeholder: "First Name", text: $userViewModel.name)
+                CustomTextField(icon: "",placeholder: "Last Name", text: $userViewModel.surName)
+                CustomTextField(icon: "",placeholder: "Email", text: $userViewModel.email)
+                CustomTextField(icon: "",placeholder: "Pet Name", text: $userViewModel.petName)
+                CustomTextField(icon: "",placeholder: "Pet type", text: $userViewModel.petType)
                 
                 HStack(spacing: 20) {
                     Button("Cancel") {

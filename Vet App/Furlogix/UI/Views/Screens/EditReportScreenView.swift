@@ -19,10 +19,6 @@ struct EditReportScreenView: View {
     @State private var reportNameCopy: String? = nil
     @State private var isAnimated = false
     
-    private var report: Report? {
-        reportViewModel.currentReport
-    }
-    
     private var reportsTemplates: [ReportTemplateField] {
         reportTemplatesViewModel.templatesForReports + newTemplateList
     }
@@ -97,7 +93,7 @@ struct EditReportScreenView: View {
                     .shadow(radius: 8, y: 4)
                     
                     // Report Name Card
-                    if let report = report {
+                    if reportViewModel.currentReport != nil {
                         VStack(alignment: .leading, spacing: 16) {
                             HStack(spacing: 12) {
                                 Image(systemName: "pencil")
@@ -109,16 +105,6 @@ struct EditReportScreenView: View {
                                     .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
                             }
                             
-                            if report.name.isEmpty {
-                                HStack {
-                                    Spacer()
-                                    ProgressView()
-                                        .scaleEffect(1.2)
-                                        .tint(Color(red: 0.4, green: 0.49, blue: 0.92))
-                                        .padding(.vertical, 20)
-                                    Spacer()
-                                }
-                            } else {
                                 TextField("Enter Report Name", text: Binding(
                                     get: { reportNameCopy ?? "" },
                                     set: { reportNameCopy = $0 }
@@ -130,7 +116,6 @@ struct EditReportScreenView: View {
                                     RoundedRectangle(cornerRadius: 16)
                                         .stroke(Color(red: 0.4, green: 0.49, blue: 0.92), lineWidth: 1)
                                 )
-                            }
                         }
                         .padding(20)
                         .background(Color.white)
@@ -188,9 +173,11 @@ struct EditReportScreenView: View {
                                 templates: reportsTemplates,
                                 onDeleteClick: { item in
                                     reportTemplatesViewModel.DeleteReportTemplate(templateId: item.id)
+                                    reportTemplatesViewModel.GetReportTemplateForReport(reportId: reportId)
                                 },
                                 onUpdateClick: { item in
                                     reportTemplatesViewModel.UpdateReportTemplate(template: item)
+                                    reportTemplatesViewModel.GetReportTemplateForReport(reportId: reportId)
                                 }
                             )
                         }
@@ -203,25 +190,7 @@ struct EditReportScreenView: View {
                 .padding(.horizontal, 20)
                 .padding(.bottom, 100) // Space for FAB
             }
-            
-            // Floating Action Button
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Button(action: { showDialog = true }) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 24, weight: .medium))
-                            .foregroundColor(.white)
-                            .frame(width: 56, height: 56)
-                            .background(Color(red: 0.4, green: 0.49, blue: 0.92))
-                            .clipShape(Circle())
-                            .shadow(radius: 12, y: 4)
-                    }
-                    .padding(.trailing, 24)
-                    .padding(.bottom, 24)
-                }
-            }
+
         }
         .navigationBarHidden(true)
         .onAppear {
@@ -229,6 +198,7 @@ struct EditReportScreenView: View {
             withAnimation {
                 isAnimated = true
             }
+            
         }
         .sheet(isPresented: $showDialog) {
             AddReportTemplateDialog(
@@ -250,9 +220,13 @@ struct EditReportScreenView: View {
     }
     
     private func setupInitialData() {
-        if let report = report, !report.name.isEmpty, reportNameCopy == nil {
-            reportNameCopy = report.name
+        var report = reportViewModel.GetReportById(reportId: reportId)
+        if(report == nil){
+            return
         }
+        reportViewModel.GetReportsForPet(petId: report?.petId ?? 0)
+        reportViewModel.loadCurrentReport(reportId: reportId)
+        reportNameCopy = reportViewModel.currentReport?.name ?? ""
         reportTemplatesViewModel.GetReportTemplateForReport(reportId: reportId)
     }
     
@@ -267,12 +241,12 @@ struct EditReportScreenView: View {
             reportTemplatesViewModel.UpdateReportTemplate(template: item)
         }
         
-        // Update report name
-       /* if var report = report {
-            report.name = reportNameCopy ?? ""
-            reportViewModel.(report)
-        }*/
-        
+        if var report = reportViewModel.GetReportById(reportId: reportId) {
+            report.name = reportNameCopy ?? report.name
+            // Save back if needed
+            reportViewModel.updateReport(report: report)
+        }
+
         reportTemplatesViewModel.GetReportTemplateForReport(reportId: reportId)
         presentationMode.wrappedValue.dismiss()
     }

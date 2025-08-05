@@ -58,6 +58,7 @@ class UserViewModel : ObservableObject, ErrorMessageProvider{
             self.errorMessage = nil
         }
         self.name = users.first?.name ?? ""
+        self.email = users.first?.email ?? ""
     }
     
     private func IsValidUser(user: User) -> Bool{
