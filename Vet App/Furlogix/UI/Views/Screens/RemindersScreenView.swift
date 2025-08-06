@@ -19,22 +19,12 @@ struct RemindersScreenView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.97, green: 0.98, blue: 1.0),
-                        Color(red: 0.93, green: 0.95, blue: 1.0),
-                        Color(red: 0.88, green: 0.91, blue: 1.0)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradient()
                 
                 ScrollView {
                     LazyVStack(spacing: 20) {
                         // Header Section
-                        headerSection
+                        HeaderSection(title: "Reminders", subtitle: "Stay on top of your pet's care schedule")
                         
                         // Clock Illustration Card
                         clockIllustrationCard
@@ -53,24 +43,7 @@ struct RemindersScreenView: View {
                 
                 // Modern Floating Action Button (only show if permission granted)
                 if isPermissionGranted {
-                    VStack {
-                        Spacer()
-                        HStack {
-                            Spacer()
-                            Button(action: {
-                                addReminder = true
-                            }) {
-                                Image(systemName: "plus")
-                                    .font(.system(size: 24))
-                                    .foregroundColor(.white)
-                                    .frame(width: 56, height: 56)
-                                    .background(Color(red: 0.26, green: 0.91, blue: 0.48))
-                                    .clipShape(Circle())
-                                    .shadow(color: .black.opacity(0.3), radius: 12, x: 0, y: 4)
-                            }
-                            .padding(24)
-                        }
-                    }
+                    FloatingActionButton(onClick: {addReminder = true})
                 }
             }
         }
@@ -91,22 +64,6 @@ struct RemindersScreenView: View {
                 }
             )
         }
-    }
-    
-    private var headerSection: some View {
-        VStack(spacing: 4) {
-            Text("Reminders")
-                .font(.system(size: 32, weight: .bold))
-                .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
-                .multilineTextAlignment(.center)
-                .scaleEffect(headerScale)
-            
-            Text("Stay on top of your pet's care schedule")
-                .font(.system(size: 16))
-                .foregroundColor(Color(red: 0.39, green: 0.46, blue: 0.55))
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
     }
     
     private var clockIllustrationCard: some View {

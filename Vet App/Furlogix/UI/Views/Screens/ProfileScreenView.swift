@@ -25,7 +25,7 @@ struct ProfileScreenView: View {
             BackgroundGradient()
             ScrollView {
                 LazyVStack(spacing: 20) {
-                    HeaderSection(headerScale: $headerScale)
+                    HeaderSection(title: "Profile", subtitle: "Manage your account and pet information")
                     ProfileInfoCard(name: $name, email: $email, onSave: {})
                     PetsSection(pets: petViewModel.pets, onSelectPet: { pet in selectedPet = pet }, onAddPet: {})
                     DangerZoneCard(onDeleteAccount: { showDeleteConfirmation = true })
@@ -43,8 +43,8 @@ struct ProfileScreenView: View {
             PetDetailsView(
                 pet: pet,
                 onSave: { updatedPet in
-                    // handle updated pet, maybe save it to DB or update UI
-                    print("Pet saved: \(updatedPet.name)")
+                    petViewModel.UpdatePet(pet: updatedPet)
+                    petViewModel.LoadPetsForUser(user_id: userId)
                 },
                 onDelete: {
                     showConfirmDelete = true
@@ -82,18 +82,31 @@ struct PetListView: View {
                     onPetSelected(pet)
                 }) {
                     VStack(alignment: .leading, spacing: 8) {
-                        AsyncImage(url: URL(string: pet.photoUri ?? "")) { image in
-                            image
-                                .resizable()
-                                .aspectRatio(contentMode: .fill)
-                        } placeholder: {
-                            Rectangle()
-                                .fill(Color(red: 0.4, green: 0.49, blue: 0.92).opacity(0.1))
-                                .overlay(
-                                    Image(systemName: "pawprint.fill")
-                                        .font(.system(size: 24))
-                                        .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
-                                )
+                        Group {
+                            if !pet.photoUri.isEmpty {
+                                let imageHandler = ImageHandler()
+                                if let uiImage = imageHandler.loadImage(from: pet.photoUri) {
+                                    Image(uiImage: uiImage)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fill)
+                                } else {
+                                    Rectangle()
+                                        .fill(Color(red: 0.4, green: 0.49, blue: 0.92).opacity(0.1))
+                                        .overlay(
+                                            Image(systemName: "pawprint.fill")
+                                                .font(.system(size: 24))
+                                                .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
+                                        )
+                                }
+                            } else {
+                                Rectangle()
+                                    .fill(Color(red: 0.4, green: 0.49, blue: 0.92).opacity(0.1))
+                                    .overlay(
+                                        Image(systemName: "pawprint.fill")
+                                            .font(.system(size: 24))
+                                            .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
+                                    )
+                            }
                         }
                         .frame(height: 80)
                         .clipped()
@@ -121,6 +134,7 @@ struct PetListView: View {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(Color(red: 0.89, green: 0.91, blue: 0.94), lineWidth: 1)
                     )
+                    
                 }
                 .buttonStyle(PlainButtonStyle())
             }

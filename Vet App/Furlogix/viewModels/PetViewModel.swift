@@ -86,6 +86,10 @@ class PetViewModel : ObservableObject, ErrorMessageProvider{
         return result
     }
     
+    public func AddPetPhoto(imageUri : String){
+        
+    }
+    
     private func IsValidPet(pet : Pet) -> Bool{
         if(pet.name.trimmingCharacters(in: .whitespacesAndNewlines).isEmpty){
             self.errorMessage = "Please provide a proper name"

@@ -26,32 +26,12 @@ struct EditReportScreenView: View {
     var body: some View {
         ZStack {
             // Background gradient
-            LinearGradient(
-                colors: [
-                    Color(red: 0.97, green: 0.98, blue: 1.0),
-                    Color(red: 0.93, green: 0.95, blue: 1.0),
-                    Color(red: 0.88, green: 0.91, blue: 1.0)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
+            BackgroundGradient()
             
             ScrollView {
                 LazyVStack(spacing: 20) {
                     // Header Section
-                    VStack(spacing: 4) {
-                        Text("Edit Report")
-                            .font(.system(size: 32, weight: .bold))
-                            .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
-                            .scaleEffect(isAnimated ? 1.0 : 0.8)
-                            .animation(.easeOut(duration: 1.0), value: isAnimated)
-                        
-                        Text("Customize your report template")
-                            .font(.system(size: 16))
-                            .foregroundColor(Color(red: 0.39, green: 0.45, blue: 0.55))
-                    }
-                    .padding(.top, 24)
+                    HeaderSection(title: "Edit Report", subtitle: "Customize your report template")
                     
                     // Action Buttons Card
                     VStack(spacing: 0) {

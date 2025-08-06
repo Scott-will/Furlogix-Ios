@@ -6,7 +6,6 @@
 //
 
 import SwiftUI
-
 struct PetsScreenView: View {
     var onNavigate: (AppRoute) -> Void
     @StateObject private var petViewModel = PetViewModel()
@@ -18,18 +17,7 @@ struct PetsScreenView: View {
     
     var body: some View {
         ZStack {
-            // Background gradient
-            LinearGradient(
-                colors: [
-                    Color(red: 0.97, green: 0.98, blue: 1.0),
-                    Color(red: 0.93, green: 0.95, blue: 1.0),
-                    Color(red: 0.88, green: 0.91, blue: 1.0)
-                ],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            .ignoresSafeArea()
-            
+            BackgroundGradient()
             ScrollView {
                 LazyVStack(spacing: 20) {
                     // Header Section
@@ -158,7 +146,8 @@ struct PetsScreenView: View {
                                 GridItem(.flexible(), spacing: 16)
                             ], spacing: 16) {
                                 ForEach(petViewModel.pets) { pet in
-                                    ModernPetCard(pet: pet) {
+                                    PetCard(pet: pet) {
+                                        selectedPet = pet
                                     }
                                 }
                             }
@@ -225,37 +214,19 @@ struct PetsScreenView: View {
                 .padding(.bottom, 100)
             }
             
-            // Floating Action Button
-            VStack {
-                Spacer()
-                HStack {
-                    Spacer()
-                    
-                    Button(action: {
-                        onNavigate(.addPet(userId: 1))
-                    }) {
-                        Image(systemName: "plus")
-                            .font(.system(size: 24))
-                            .foregroundColor(.white)
-                            .frame(width: 56, height: 56)
-                            .background(Color(red: 0.02, green: 0.59, blue: 0.41))
-                            .clipShape(Circle())
-                            .shadow(color: Color.black.opacity(0.3), radius: 12, x: 0, y: 6)
-                    }
-                    .padding(.trailing, 24)
-                    .padding(.bottom, 24)
-                }
-            }
+            FloatingActionButton(onClick: {onNavigate(.addPet(userId: 1))})
+
         }
         .onAppear {
             petViewModel.LoadPetsForUser(user_id: userId)
         }
         .sheet(item: $selectedPet) { pet in
             PetDetailsView(pet: pet,
-                           onSave: {_ in petViewModel.InsertPet(pet: pet)},
-                           onDelete: {showConfirmDelete = true}
-
-            )
+                           onSave: { updatedPet in
+                               petViewModel.InsertPet(pet: updatedPet)
+                               petViewModel.LoadPetsForUser(user_id: userId) // Refresh the list
+                           },
+                           onDelete: {showConfirmDelete = true})
         }
         .alert("Delete Pet", isPresented: $showConfirmDelete) {
             Button("Delete", role: .destructive) {

@@ -10,17 +10,16 @@ struct AppHeader: View {
     @ObservedObject var userViewModel: UserViewModel = UserViewModel()
     @StateObject private var routeManager = RouteManager.shared
 
-
     var body: some View {
         HStack {
-            HStack(spacing: 8) {
-                Text(userViewModel.currentUser?.name ?? "Guest")
+            Text(userViewModel.currentUser?.name ?? "Guest")
+                .foregroundColor(.white)
+            
+            Spacer()
+            
+            Button(action: {routeManager.push(.profile(userId: 1))}) {
+                Image(systemName: "person.fill")
                     .foregroundColor(.white)
-
-                Button(action: {routeManager.push(.profile(userId: 1))}) {
-                    Image(systemName: "person.fill")
-                        .foregroundColor(.white)
-                }
             }
         }
         .padding()

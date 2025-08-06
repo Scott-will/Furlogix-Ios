@@ -18,6 +18,7 @@ struct ManageReportsScreenView: View {
     @State private var label = ""
     @State private var headerScale: CGFloat = 0.0
     
+    
     private var filteredReports: [Report] {
         reportViewModel.reportsForPet.filter { $0.petId == petId }
     }
@@ -25,55 +26,24 @@ struct ManageReportsScreenView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.97, green: 0.98, blue: 1.0),
-                        Color(red: 0.93, green: 0.95, blue: 1.0),
-                        Color(red: 0.88, green: 0.91, blue: 1.0)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradient()
                 
                 ScrollView {
                     LazyVStack(spacing: 20) {
-                        // Header Section
-                        headerSection
+                        HeaderSection(title: "\(petViewModel.currentpet?.name ?? "Pet") Reports", subtitle: "Track and manage health reports")
                         
                         // Too Many Reports Warning Card
                       /*  if reportViewModel. {
                             tooManyReportsCard
                         }
                         */
-                        // Reports List Card
                         reportsListCard
                     }
                     .padding(.horizontal, 20)
                     .padding(.vertical, 24)
-                    .padding(.bottom, 100) // Extra bottom padding for FAB
+                    .padding(.bottom, 100) 
                 }
-                
-                // Modern Floating Action Button
-                VStack {
-                    Spacer()
-                    HStack {
-                        Spacer()
-                        Button(action: {
-                            showDialog = true
-                        }) {
-                            Image(systemName: "plus")
-                                .font(.system(size: 24))
-                                .foregroundColor(.white)
-                                .frame(width: 56, height: 56)
-                                .background(Color(red: 0.4, green: 0.49, blue: 0.92))
-                                .clipShape(Circle())
-                                .shadow(color: .black.opacity(0.3), radius: 12, x: 0, y: 4)
-                        }
-                        .padding(24)
-                    }
-                }
+                FloatingActionButton(onClick: {showDialog = true})
             }
         }
         .onAppear {
@@ -104,22 +74,6 @@ struct ManageReportsScreenView: View {
         } message: {
             Text(reportViewModel.errorMessage ?? "Unknown error")
         }
-    }
-    
-    private var headerSection: some View {
-        VStack(spacing: 4) {
-            Text("\(petViewModel.currentpet?.name ?? "Pet") Reports")
-                .font(.system(size: 32, weight: .bold))
-                .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
-                .multilineTextAlignment(.center)
-                .scaleEffect(headerScale)
-            
-            Text("Track and manage health reports")
-                .font(.system(size: 16))
-                .foregroundColor(Color(red: 0.39, green: 0.46, blue: 0.55))
-                .multilineTextAlignment(.center)
-        }
-        .frame(maxWidth: .infinity)
     }
     
     private var tooManyReportsCard: some View {

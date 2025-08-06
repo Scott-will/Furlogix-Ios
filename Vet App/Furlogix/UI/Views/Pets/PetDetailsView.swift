@@ -14,11 +14,14 @@ struct PetDetailsView: View {
     @State private var type: String
     @State private var selectedImage: UIImage?
     @State private var showImagePicker = false
+    @ObservedObject private var petViewModel = PetViewModel()
     
     var pet: Pet
     var isNewPet: Bool { pet.id == 0 }
     var onSave: (Pet) -> Void
     var onDelete: () -> Void
+    
+    private let imageHandler = ImageHandler()
     
     init(pet: Pet, onSave: @escaping (Pet) -> Void, onDelete: @escaping () -> Void) {
         self.pet = pet
@@ -26,12 +29,14 @@ struct PetDetailsView: View {
         self.onDelete = onDelete
         _name = State(initialValue: pet.name)
         _type = State(initialValue: pet.type)
+        AppLogger.debug("saved uri : \(pet.photoUri)") 
     }
     
     var body: some View {
         VStack(spacing: 16) {
             // Pet Image
             if let uiImage = selectedImage {
+                // Show newly selected image
                 Image(uiImage: uiImage)
                     .resizable()
                     .scaledToFill()
@@ -47,10 +52,10 @@ struct PetDetailsView: View {
                                 .padding(8)
                         }
                     }
-            } else if pet.photoUri != "", let url = URL(string: pet.photoUri),
-                      let imageData = try? Data(contentsOf: url),
-                      let image = UIImage(data: imageData) {
-                Image(uiImage: image)
+            } else if !pet.photoUri.isEmpty, let existingImage = imageHandler.loadImage(from: pet.photoUri){
+                // Show existing image from storage
+                
+                Image(uiImage: existingImage)
                     .resizable()
                     .scaledToFill()
                     .frame(height: 200)
@@ -66,11 +71,20 @@ struct PetDetailsView: View {
                         }
                     }
             } else {
+                // No image placeholder
                 Button(action: { showImagePicker = true }) {
                     RoundedRectangle(cornerRadius: 12)
                         .stroke(Color.blue, lineWidth: 1)
                         .frame(height: 200)
-                        .overlay(Text("Add Photo"))
+                        .overlay(
+                            VStack {
+                                Image(systemName: "camera.fill")
+                                    .font(.system(size: 24))
+                                    .foregroundColor(.blue)
+                                Text("Add Photo")
+                                    .foregroundColor(.blue)
+                            }
+                        )
                 }
             }
             
@@ -93,13 +107,20 @@ struct PetDetailsView: View {
                 Spacer()
                 
                 Button("Save") {
+                    var photoUri = pet.photoUri
+                    
+                    // Save new image if one was selected
+                    if let selectedImage = selectedImage {
+                        photoUri = imageHandler.saveImage(selectedImage) ?? pet.photoUri
+                    }
+                    AppLogger.debug(photoUri)
                     let updatedPet = Pet(
                         id: pet.id,
                         name: name,
                         type: type,
-                        description: "",
+                        description: pet.description,
                         userId: 1,
-                        photoUri: selectedImage != nil ? saveImage(selectedImage!) : pet.photoUri
+                        photoUri: photoUri
                     )
                     onSave(updatedPet)
                     dismiss()
@@ -111,16 +132,6 @@ struct PetDetailsView: View {
         .sheet(isPresented: $showImagePicker) {
             ImagePicker(image: $selectedImage)
         }
-    }
-    
-    private func saveImage(_ image: UIImage) -> String {
-        // Example saving logic, you can customize this path
-        let filename = "pet_\(Int(Date().timeIntervalSince1970)).jpg"
-        let url = FileManager.default.temporaryDirectory.appendingPathComponent(filename)
-        if let data = image.jpegData(compressionQuality: 0.8) {
-            try? data.write(to: url)
-        }
-        return url.absoluteString
     }
 }
 

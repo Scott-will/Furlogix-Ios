@@ -21,17 +21,7 @@ struct PetDashboardScreenView: View {
     var body: some View {
         GeometryReader { geometry in
             ZStack {
-                // Background gradient
-                LinearGradient(
-                    colors: [
-                        Color(red: 0.97, green: 0.98, blue: 1.0),
-                        Color(red: 0.93, green: 0.95, blue: 1.0),
-                        Color(red: 0.88, green: 0.91, blue: 1.0)
-                    ],
-                    startPoint: .top,
-                    endPoint: .bottom
-                )
-                .ignoresSafeArea()
+                BackgroundGradient()
                 
                 ScrollView {
                     LazyVStack(spacing: 20) {
@@ -40,7 +30,7 @@ struct PetDashboardScreenView: View {
                         
                         // Pet Photo Card
                         if let photoUri = petViewModel.currentpet?.photoUri {
-                            petPhotoCard(photoUri: photoUri)
+                            petPhotoCard(photoUri: photoUri, name: petViewModel.currentpet?.name ?? "")
                         }
                         
                         // Action Cards
@@ -84,44 +74,6 @@ struct PetDashboardScreenView: View {
                 .foregroundColor(Color(red: 0.39, green: 0.46, blue: 0.55))
                 .multilineTextAlignment(.center)
         }
-    }
-    
-    private func petPhotoCard(photoUri: String) -> some View {
-        ZStack {
-            AsyncImage(url: URL(string: photoUri)) { image in
-                image
-                    .resizable()
-                    .aspectRatio(contentMode: .fill)
-            } placeholder: {
-                Rectangle()
-                    .fill(Color.gray.opacity(0.3))
-            }
-            .frame(height: 240)
-            .clipped()
-            
-            // Gradient overlay
-            LinearGradient(
-                colors: [Color.clear, Color.black.opacity(0.3)],
-                startPoint: .top,
-                endPoint: .bottom
-            )
-            
-            // Pet name overlay
-            VStack {
-                Spacer()
-                HStack {
-                    Text(petViewModel.currentpet?.name ?? "")
-                        .font(.system(size: 24, weight: .bold))
-                        .foregroundColor(.white)
-                        .padding(.leading, 20)
-                        .padding(.bottom, 20)
-                    Spacer()
-                }
-            }
-        }
-        .background(Color.white)
-        .cornerRadius(24)
-        .shadow(color: .black.opacity(0.1), radius: 12, x: 0, y: 4)
     }
     
     private var actionCardsSection: some View {

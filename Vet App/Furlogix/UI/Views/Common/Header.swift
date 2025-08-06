@@ -7,10 +7,12 @@
 import SwiftUI
 
 struct HeaderSection: View {
-    @Binding var headerScale: CGFloat
+    var title: String
+    var subtitle: String
+    @State private var headerScale: CGFloat = 0.0
     var body: some View {
         VStack {
-            Text("Profile")
+            Text(title)
                 .font(.system(size: 32, weight: .bold))
                 .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
                 .scaleEffect(headerScale)
@@ -18,7 +20,7 @@ struct HeaderSection: View {
                     withAnimation(.easeOut(duration: 1.0)) { headerScale = 1.0 }
                 }
             
-            Text("Manage your account and pet information")
+            Text(subtitle)
                 .font(.system(size: 16))
                 .foregroundColor(Color(red: 0.39, green: 0.45, blue: 0.55))
                 .padding(.top, 4)
