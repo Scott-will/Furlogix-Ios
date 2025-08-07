@@ -10,4 +10,5 @@ struct ReportTemplateField : Decodable, Identifiable{
     var reportId : Int64
     var name : String
     var fieldType : FieldType
+    var icon : String
 }

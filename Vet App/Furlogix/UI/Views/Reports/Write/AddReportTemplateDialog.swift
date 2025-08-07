@@ -21,7 +21,7 @@ struct AddReportTemplateDialog: View {
     @State private var textFieldValue: String
     @State private var typeFieldValue: String
     @State private var unitsFieldValue: String
-    @State private var selectedIconName = "pawprint.fill"
+    @State private var selectedImageName : String?
     @State private var isDropdownExpanded = false
 
     private let fieldTypes = FieldType.allCases
@@ -46,6 +46,8 @@ struct AddReportTemplateDialog: View {
         _textFieldValue = State(initialValue: currentLabel)
         _typeFieldValue = State(initialValue: selectedType.displayName)
         _unitsFieldValue = State(initialValue: currentUnit)
+        _selectedImageName = State(initialValue: reportField?.icon)
+
     }
 
     var body: some View {
@@ -61,13 +63,8 @@ struct AddReportTemplateDialog: View {
                         )
                         FieldUnitsSection(unitsFieldValue: $unitsFieldValue)
 
-                        // Icon selector section (optional)
-                        /*
-                        ReportTemplateIconSelector(
-                            selectedIconName: selectedIconName,
-                            onIconSelected: { selectedIconName = $0 }
-                        )
-                        */
+                        ImageSelectionSection(selectedImageName: $selectedImageName)
+
                     }
                     .padding(.horizontal, 20)
                 }
@@ -85,12 +82,12 @@ struct AddReportTemplateDialog: View {
 
     private func handleSave() {
         let selectedType = fieldTypes.first(where: { $0.displayName == typeFieldValue }) ?? .Text
+        AppLogger.debug("\(selectedImageName)")
         let field = ReportTemplateField(
             reportId: reportId,
             name: textFieldValue,
             fieldType: selectedType,
-            //unit: unitsFieldValue,
-            //iconName: selectedIconName
+            icon: selectedImageName ?? ""
         )
         onSave(field)
     }
@@ -213,5 +210,109 @@ struct SaveButton: View {
                 .cornerRadius(12)
         }
         .disabled(isDisabled)
+    }
+}
+
+struct ImagePickerView: View{
+    @Binding var selectedImageName: String?
+        let onDismiss: () -> Void
+    
+    private let availableImages = [
+            "water", "medicine", "food", "paw prints"
+        ]
+    
+    let columns = Array(repeating: GridItem(.flexible()), count: 3)
+        
+        var body: some View {
+            NavigationView {
+                ScrollView {
+                    LazyVGrid(columns: columns, spacing: 16) {
+                        ForEach(availableImages, id: \.self) { imageName in
+                            Button(action: {
+                                selectedImageName = imageName
+                                onDismiss()
+                            }) {
+                                VStack(spacing: 8) {
+                                    Image(imageName)
+                                        .resizable()
+                                        .aspectRatio(contentMode: .fit)
+                                        .frame(width: 60, height: 60)
+                                        .background(
+                                            Circle()
+                                                .fill(selectedImageName == imageName ?
+                                                      Color.blue.opacity(0.2) : Color.gray.opacity(0.1))
+                                        )
+                                        .overlay(
+                                            Circle()
+                                                .stroke(selectedImageName == imageName ?
+                                                       Color.blue : Color.clear, lineWidth: 2)
+                                        )
+                                    
+                                    Text(imageName.capitalized)
+                                        .font(.caption)
+                                        .foregroundColor(.primary)
+                                }
+                            }
+                            .buttonStyle(PlainButtonStyle())
+                        }
+                    }
+                    .padding()
+                }
+                .navigationTitle("Select Image")
+                .navigationBarTitleDisplayMode(.inline)
+                .navigationBarItems(
+                    leading: Button("Cancel", action: onDismiss)
+                )
+            }
+        }
+    }
+
+struct ImageSelectionSection: View {
+    @Binding var selectedImageName: String?
+    @State private var showingImagePicker = false
+    
+    var body: some View {
+        VStack(alignment: .leading, spacing: 8) {
+            Text("Field Image:")
+                .font(.system(size: 16, weight: .medium))
+                .foregroundColor(Color(red: 0.12, green: 0.16, blue: 0.23))
+            
+            Button(action: {
+                showingImagePicker = true
+            }) {
+                HStack {
+                    if let imageName = selectedImageName {
+                        Image(imageName)
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 30, height: 30)
+                        Text(imageName.capitalized)
+                    } else {
+                        Image(systemName: "photo")
+                            .foregroundColor(.gray)
+                        Text("Select Image")
+                            .foregroundColor(.gray)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .foregroundColor(.gray)
+                }
+                .padding(.horizontal, 12)
+                .padding(.vertical, 12)
+                .background(Color.white)
+                .overlay(
+                    RoundedRectangle(cornerRadius: 8)
+                        .stroke(Color.gray.opacity(0.3), lineWidth: 1)
+                )
+                .cornerRadius(8)
+            }
+            .buttonStyle(PlainButtonStyle())
+            .sheet(isPresented: $showingImagePicker) {
+                ImagePickerView(
+                    selectedImageName: $selectedImageName,
+                    onDismiss: { showingImagePicker = false }
+                )
+            }
+        }
     }
 }

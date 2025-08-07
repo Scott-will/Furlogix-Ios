@@ -53,9 +53,9 @@ struct ReportTemplateItem: View {
                     Circle()
                         .fill(Color(red: 0.4, green: 0.49, blue: 0.92).opacity(0.1))
                         .frame(width: 48, height: 48)
-                       /* .overlay(
+                        .overlay(
                             IconDisplayer(iconName: data.icon)
-                        )*/
+                        )
                     
                     // Text section
                     VStack(spacing: 8) {
@@ -123,7 +123,7 @@ struct ReportTemplateItem: View {
                 reportId: data.reportId,
                 currentLabel: data.name,
                 selectedType: data.fieldType,
-                currentUnit: "",//data.units,
+                currentUnit: "",
                 update: true,
                 reportField: data,
                 onDismiss: { showDialog = false },
@@ -149,10 +149,26 @@ struct ReportTemplateItem: View {
 
 struct IconDisplayer: View {
     let iconName: String
-    
+
     var body: some View {
-        Image(systemName: iconName)
-            .font(.system(size: 24, weight: .medium))
-            .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
+        Group {
+            if !iconName.isEmpty {
+                if UIImage(named: iconName) != nil {
+                    Image(iconName)
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 24, height: 24)
+                        .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
+                } else {
+                    Image(systemName: iconName)
+                        .font(.system(size: 24, weight: .medium))
+                        .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92))
+                }
+            } else {
+                Image(systemName: "photo")
+                    .font(.system(size: 24, weight: .medium))
+                    .foregroundColor(Color(red: 0.4, green: 0.49, blue: 0.92).opacity(0.5))
+            }
+        }
     }
 }
