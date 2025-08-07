@@ -59,6 +59,7 @@ struct ManageReportsScreenView: View {
                 currentLabel: $label,
                 onSave: { newItem in
                     reportViewModel.insertReport(name: newItem.name, petId: petId)
+                    reportViewModel.GetReportsForPet(petId: petId)
                     label = ""
                     showDialog = false
                 },
@@ -184,6 +185,7 @@ struct ManageReportsScreenView: View {
                 },
                 onDeleteClick: { report in
                     reportViewModel.deleteReport(id: report.id)
+                    reportViewModel.GetReportsForPet(petId: petId)
                 },
                 onEditClick: { report in
                     onNavigate(.editReport(reportId: report.id))

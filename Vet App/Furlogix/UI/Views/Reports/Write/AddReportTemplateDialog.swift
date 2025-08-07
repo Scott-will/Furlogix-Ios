@@ -82,12 +82,12 @@ struct AddReportTemplateDialog: View {
 
     private func handleSave() {
         let selectedType = fieldTypes.first(where: { $0.displayName == typeFieldValue }) ?? .Text
-        AppLogger.debug("\(selectedImageName)")
         let field = ReportTemplateField(
             reportId: reportId,
             name: textFieldValue,
             fieldType: selectedType,
-            icon: selectedImageName ?? ""
+            icon: selectedImageName ?? "",
+            units: unitsFieldValue
         )
         onSave(field)
     }

@@ -20,6 +20,7 @@ class ReportTemplateStore{
     private let reportId = SQLite.Expression<Int64>("reportId")
     private let fieldType = SQLite.Expression<Int64>("fieldType")
     private let icon = SQLite.Expression<String>("icon")
+    private let units = SQLite.Expression<String>("units")
 
     static let instance = ReportTemplateStore()
 
@@ -56,6 +57,7 @@ class ReportTemplateStore{
                 table.column(reportId)
                 table.column(fieldType)
                 table.column(icon)
+                table.column(units)
                 table.foreignKey(reportId, references: ReportStore.instance.GetTable(), ReportStore.instance.GetPrimaryKeyColumn())
             })
             print("Table Created...")
@@ -78,7 +80,7 @@ class ReportTemplateStore{
         do {
             for reportTemplate in try database.prepare(self.reportTemplates.filter(reportId == report_id)){
                 templateList.append(ReportTemplateField(id: reportTemplate[id], reportId: reportTemplate[reportId], name: reportTemplate[name], fieldType: FieldType(rawValue: Int(reportTemplate[fieldType])) ?? FieldType.Text,
-                    icon: reportTemplate[icon]))
+                    icon: reportTemplate[icon], units: reportTemplate[units]))
             }
         }
         catch {
@@ -96,7 +98,8 @@ class ReportTemplateStore{
                     reportId: Int64(template[reportId]),
                     name: template[name],
                     fieldType: FieldType(rawValue: Int(template[fieldType])) ?? FieldType.Text,
-                    icon: template[icon]
+                    icon: template[icon],
+                    units: template[units]
                 )
             }
         }
@@ -113,7 +116,8 @@ class ReportTemplateStore{
             self.name <- template.name,
             self.reportId <- template.reportId,
             self.fieldType <- Int64(template.fieldType.rawValue),
-            self.icon <- template.icon)
+            self.icon <- template.icon,
+            self.units <- template.units)
         do {
             let rowID = try database.run(insert)
             return rowID
@@ -132,7 +136,8 @@ class ReportTemplateStore{
             self.name <- template.name,
             self.reportId <- template.reportId,
             self.fieldType <- Int64(template.fieldType.rawValue),
-            self.icon <- template.icon
+            self.icon <- template.icon,
+            self.units <- template.units
         )
 
         do {

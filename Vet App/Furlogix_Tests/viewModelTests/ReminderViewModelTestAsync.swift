@@ -5,7 +5,7 @@
 //  Created by Scott Williams on 2025-07-10.
 //
 
-@testable import Vet_App
+@testable import Furlogix
 import XCTest
 
 class ReminderViewModelTestAsync : XCTestCase {

@@ -33,6 +33,23 @@
 		61D06DA12D068845007605AE /* FurlogixUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FurlogixUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		89857ECF2E44715E00919306 /* Exceptions for "Furlogix_Tests" folder in "Furlogix" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AddReportDialogTest.swift,
+			);
+			target = 61D06D812D068843007605AE /* Furlogix */;
+		};
+		89857ED02E44715E00919306 /* Exceptions for "Furlogix_Tests" folder in "FurlogixTests" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				AddReportDialogTest.swift,
+			);
+			target = 61D06D962D068845007605AE /* FurlogixTests */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		61D06D842D068843007605AE /* Furlogix */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
@@ -41,12 +58,11 @@
 		};
 		61D06D9A2D068845007605AE /* Furlogix_Tests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				89857ECF2E44715E00919306 /* Exceptions for "Furlogix_Tests" folder in "Furlogix" target */,
+				89857ED02E44715E00919306 /* Exceptions for "Furlogix_Tests" folder in "FurlogixTests" target */,
+			);
 			path = Furlogix_Tests;
-			sourceTree = "<group>";
-		};
-		61D06DA42D068845007605AE /* Furlogix_UITests */ = {
-			isa = PBXFileSystemSynchronizedRootGroup;
-			path = Furlogix_UITests;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -82,7 +98,6 @@
 			children = (
 				61D06D842D068843007605AE /* Furlogix */,
 				61D06D9A2D068845007605AE /* Furlogix_Tests */,
-				61D06DA42D068845007605AE /* Furlogix_UITests */,
 				61D06D832D068843007605AE /* Products */,
 			);
 			sourceTree = "<group>";
@@ -158,9 +173,6 @@
 			);
 			dependencies = (
 				61D06DA32D068845007605AE /* PBXTargetDependency */,
-			);
-			fileSystemSynchronizedGroups = (
-				61D06DA42D068845007605AE /* Furlogix_UITests */,
 			);
 			name = FurlogixUITests;
 			packageProductDependencies = (

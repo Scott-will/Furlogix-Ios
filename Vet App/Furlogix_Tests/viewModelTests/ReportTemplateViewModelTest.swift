@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import Vet_App
+@testable import Furlogix
 
 struct ReportTemplateViewModelTest{
     
@@ -14,8 +14,8 @@ struct ReportTemplateViewModelTest{
     func GetReportTemplate_ForReport_Success() async throws {
         let mockRepo = MockReportTemplateRepository()
         mockRepo.fakeReportTemplates = [
-            ReportTemplateField(reportId: 1, name: "Test 1", fieldType: FieldType.Number),
-            ReportTemplateField(reportId: 1, name: "Test 2", fieldType: FieldType.Boolean),
+            ReportTemplateField(reportId: 1, name: "Test 1", fieldType: FieldType.Number, icon: "", units: ""),
+            ReportTemplateField(reportId: 1, name: "Test 2", fieldType: FieldType.Boolean, icon: "", units: ""),
         ]
         
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
@@ -31,9 +31,9 @@ struct ReportTemplateViewModelTest{
     func GetReportTemplate_ForReport_Fails() async throws {
         let mockRepo = MockReportTemplateRepository()
         mockRepo.fakeReportTemplates = [
-            ReportTemplateField(reportId: 1, name: "Test 1", fieldType: FieldType.Number),
-            ReportTemplateField(reportId: 1, name: "Test 2", fieldType: FieldType.Boolean),
-            ReportTemplateField(reportId: 2, name: "Test 2", fieldType: FieldType.Text)
+            ReportTemplateField(reportId: 1, name: "Test 1", fieldType: FieldType.Number, icon: "", units: ""),
+            ReportTemplateField(reportId: 1, name: "Test 2", fieldType: FieldType.Boolean, icon: "", units: ""),
+            ReportTemplateField(reportId: 2, name: "Test 2", fieldType: FieldType.Text, icon: "", units: "")
         ]
         mockRepo.getShouldReturnFalse = true
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
@@ -46,7 +46,7 @@ struct ReportTemplateViewModelTest{
     @Test
     func InsertReportTemplate_Success() async throws {
         let mockRepo = MockReportTemplateRepository()
-        let template = ReportTemplateField(reportId: 2, name: "Test 1", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "Test 1", fieldType: FieldType.Text, icon: "", units: "")
         
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.InsertReportTemplate(template: template)
@@ -60,7 +60,7 @@ struct ReportTemplateViewModelTest{
     func InsertReportTemplate_Fails() async throws {
         let mockRepo = MockReportTemplateRepository()
         mockRepo.insertShouldReturnNil = true
-        let template = ReportTemplateField(reportId: 2, name: "Test 1", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "Test 1", fieldType: FieldType.Text, icon: "", units: "")
 
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.InsertReportTemplate(template: template)
@@ -71,7 +71,7 @@ struct ReportTemplateViewModelTest{
     @Test
     func InsertReportTemplate_EmptyName_Fails() async throws {
         let mockRepo = MockReportTemplateRepository()
-        let template = ReportTemplateField(reportId: 2, name: "", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "", fieldType: FieldType.Text, icon: "", units: "")
 
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.InsertReportTemplate(template: template)
@@ -82,7 +82,7 @@ struct ReportTemplateViewModelTest{
     @Test
     func UpdateReportTemplate_Success() async throws {
         let mockRepo = MockReportTemplateRepository()
-        let template = ReportTemplateField(reportId: 2, name: "test update", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "test update", fieldType: FieldType.Text, icon: "", units: "")
 
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.UpdateReportTemplate(template: template)
@@ -95,7 +95,7 @@ struct ReportTemplateViewModelTest{
     func UpdateReportTemplate_Fails() async throws {
         let mockRepo = MockReportTemplateRepository()
         mockRepo.updateShouldReturnNil = true
-        let template = ReportTemplateField(reportId: 2, name: "test update", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "test update", fieldType: FieldType.Text, icon: "", units: "")
 
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.UpdateReportTemplate(template: template)
@@ -107,7 +107,7 @@ struct ReportTemplateViewModelTest{
     @Test
     func UpdateReportTemplate_EmptyName_Fails() async throws {
         let mockRepo = MockReportTemplateRepository()
-        let template = ReportTemplateField(reportId: 2, name: "", fieldType: FieldType.Text)
+        let template = ReportTemplateField(reportId: 2, name: "", fieldType: FieldType.Text, icon: "", units: "")
 
         let vm = ReportTemplateViewModel(reportTemplateRepository: mockRepo)
         let result = vm.UpdateReportTemplate(template: template)

@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import Vet_App
+@testable import Furlogix
 
 class MockReminderRepository : ReminderRepositoryProtocol {
     
@@ -15,11 +15,11 @@ class MockReminderRepository : ReminderRepositoryProtocol {
     var deleteShouldReturnFalse = false
     var deletedReminders : [Int64] = []
 
-    func getAllReminders() -> [Vet_App.Reminder] {
+    func getAllReminders() -> [Furlogix.Reminder] {
         return fakeReminders
     }
     
-    func insertReminder(reminder: Vet_App.Reminder) -> Int64 {
+    func insertReminder(reminder: Furlogix.Reminder) -> Int64 {
         if(insertShouldReturnNil){
             return -1
         }

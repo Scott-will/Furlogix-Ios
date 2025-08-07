@@ -5,7 +5,7 @@
 //  Created by Scott Williams on 2025-07-07.
 //
 import Foundation
-@testable import Vet_App
+@testable import Furlogix
 
 class MockPetRepository: PetRepositoryProtocol {
     var fakePets: [Pet] = []

@@ -16,6 +16,7 @@ struct RootView: View {
             if(userViewModel.users.isEmpty){
                 SignUpScreenView(onNavigate: { route in
                     routeManager.onNavigate(route)
+                    userViewModel.getUsers()
                     
                 })
             }

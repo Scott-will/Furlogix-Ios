@@ -6,7 +6,7 @@
 //
 
 import Foundation
-@testable import Vet_App
+@testable import Furlogix
 
 class MockReportRepository : ReportRepositoryProtocol{
     

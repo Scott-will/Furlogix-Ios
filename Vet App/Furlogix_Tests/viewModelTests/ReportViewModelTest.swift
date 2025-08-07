@@ -6,7 +6,7 @@
 //
 
 import Testing
-@testable import Vet_App
+@testable import Furlogix
 
 struct ReportViewModelTest{
     

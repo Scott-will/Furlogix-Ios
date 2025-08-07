@@ -7,7 +7,7 @@
 
 import XCTest
 
-@testable import Vet_App
+@testable import Furlogix
 
 final class CsvBuilderTests: XCTestCase {
 
@@ -25,8 +25,8 @@ final class CsvBuilderTests: XCTestCase {
 
     func testBuildCsvWithSingleEntry() {
         let templates = [
-            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number),
-            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number),
+            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number, icon: "", units: ""),
+            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number, icon : "", units: "")
         ]
         let entries = [
             ReportEntry(id: 1, value: "Test val", reportId: 1, templateId: 1, timestamp: "2025-07-10", sent: false),
@@ -42,8 +42,8 @@ final class CsvBuilderTests: XCTestCase {
 
     func testBuildCsvWithMissingValues() {
         let templates = [
-            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number),
-            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number),
+            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number, icon : "", units: ""),
+            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number, icon : "", units: "")
         ]
         let entries = [
             ReportEntry(id: 1, value: "Test val", reportId: 1, templateId: 1, timestamp: "2025-07-10", sent: false),
@@ -59,8 +59,8 @@ final class CsvBuilderTests: XCTestCase {
 
     func testBuildAndWriteCsvCreatesFile() {
         let templates = [
-            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number),
-            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number),
+            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number, icon : "", units: ""),
+            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number, icon : "", units: "")
         ]
         let entries = [
             ReportEntry(id: 1, value: "Test val", reportId: 1, templateId: 1, timestamp: "2025-07-10", sent: false),
@@ -89,8 +89,8 @@ final class CsvBuilderTests: XCTestCase {
 
     func testBuildCsvWithMultipleTimestamps() {
         let templates = [
-            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number),
-            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number),
+            ReportTemplateField(id: 1, reportId: 1, name: "Test", fieldType: FieldType.Number, icon : "", units: ""),
+            ReportTemplateField(id: 2, reportId: 1, name: "Test 2", fieldType: FieldType.Number, icon : "", units: ""),
         ]
         let entries = [
             ReportEntry(id: 1, value: "Test val 3", reportId: 1, templateId: 1, timestamp: "2025-07-09", sent: false),
