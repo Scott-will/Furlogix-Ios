@@ -7,20 +7,22 @@
 
 @testable import Furlogix
 
-class MockUserNotificationService : UserNotificationServiceProtocol{
-    var shouldGrantPermission: Bool = true
-        var shouldScheduleSuccess: Bool = true
-        var canceledRequestIds: [String] = []
+class MockUserNotificationService: UserNotificationServiceProtocol {
+  var shouldGrantPermission: Bool = true
+  var shouldScheduleSuccess: Bool = true
+  var canceledRequestIds: [String] = []
 
-        func requestNotificationPermission(completion: @escaping (Bool) -> Void) {
-            completion(shouldGrantPermission)
-        }
-        
-        func scheduleReminderNotification(reminder: Furlogix.Reminder, completion: @escaping (Bool) -> Void) {
-            completion(shouldScheduleSuccess)
-        }
-        
-        func cancelReminderNotificationService(reminderRequestId: String) {
-            canceledRequestIds.append(reminderRequestId)
-        }
+  func requestNotificationPermission(completion: @escaping (Bool) -> Void) {
+    completion(shouldGrantPermission)
+  }
+
+  func scheduleReminderNotification(
+    reminder: Furlogix.Reminder, completion: @escaping (Bool) -> Void
+  ) {
+    completion(shouldScheduleSuccess)
+  }
+
+  func cancelReminderNotificationService(reminderRequestId: String) {
+    canceledRequestIds.append(reminderRequestId)
+  }
 }

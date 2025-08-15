@@ -8,8 +8,8 @@
 import Foundation
 
 struct EmailWrapper {
-    var toEmailAddress: String
-    var subject: String
-    var bodyText: String
-    var fileURL: URL
+  var toEmailAddress: String
+  var subject: String
+  var bodyText: String
+  var fileURL: URL
 }

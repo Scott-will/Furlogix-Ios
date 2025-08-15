@@ -4,10 +4,10 @@
 //
 //  Created by Scott Williams on 2024-12-10.
 //
-protocol UserRepositoryProtocol{
-    func getUsers() -> [User]
-    
-    func insertUsers(user : User) -> Int64?
-    
-    func getCurrentUser() -> User?
+protocol UserRepositoryProtocol {
+  func getUsers() -> [User]
+
+  func insertUsers(user: User) -> Int64?
+
+  func getCurrentUser() -> User?
 }

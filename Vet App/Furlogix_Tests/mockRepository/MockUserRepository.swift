@@ -5,29 +5,30 @@
 //  Created by Scott Williams on 2025-07-04.
 //
 import Foundation
+
 @testable import Furlogix
 
 class MockUserRepository: UserRepositoryProtocol {
-    var insertedUsers: [User] = []
-    var fakeUsers: [User] = []
-    
-    var insertShouldReturnNil = false
-    var updateShouldReturnNil = false
-    var deleteShouldReturnFalse = false
+  var insertedUsers: [User] = []
+  var fakeUsers: [User] = []
 
-    func insertUsers(user: User) -> Int64? {
-        if(insertShouldReturnNil){
-            return nil
-        }
-        insertedUsers.append(user)
-        return 1
-    }
+  var insertShouldReturnNil = false
+  var updateShouldReturnNil = false
+  var deleteShouldReturnFalse = false
 
-    func getUsers() -> [User] {
-        return fakeUsers
+  func insertUsers(user: User) -> Int64? {
+    if insertShouldReturnNil {
+      return nil
     }
+    insertedUsers.append(user)
+    return 1
+  }
 
-    func getCurrentUser() -> User? {
-        return fakeUsers.first
-    }
+  func getUsers() -> [User] {
+    return fakeUsers
+  }
+
+  func getCurrentUser() -> User? {
+    return fakeUsers.first
+  }
 }

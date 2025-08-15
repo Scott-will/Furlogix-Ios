@@ -1,5 +1,5 @@
 {
-  "originHash" : "86e7debf7dc7225287f4a54c7c0464b3b2b1e783ab1a00ddc7818991c1a3d0a3",
+  "originHash" : "083831c45b529633e1fc39332de21a3dad0bba08956051c3848cec9babad422c",
   "pins" : [
     {
       "identity" : "sqlite.swift",
@@ -71,6 +71,15 @@
       "state" : {
         "revision" : "8545ddf4de043e6f2051c5cf204f39ef778ebf6b",
         "version" : "0.59.1"
+      }
+    },
+    {
+      "identity" : "viewinspector",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/nalexn/ViewInspector",
+      "state" : {
+        "revision" : "a6fcac8485bc8f57b2d2b55bb6d97138e8659e4b",
+        "version" : "0.10.2"
       }
     }
   ],

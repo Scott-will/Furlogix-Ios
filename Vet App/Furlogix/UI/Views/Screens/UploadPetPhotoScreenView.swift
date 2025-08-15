@@ -7,13 +7,12 @@
 
 import SwiftUI
 
-struct UploadPetPhotoScreenView : View{
-    
-    
-    var body : some View{
-            VStack{
-                Text("Upload Photo Screen")
-            }
-        
+struct UploadPetPhotoScreenView: View {
+
+  var body: some View {
+    VStack {
+      Text("Upload Photo Screen")
     }
+
+  }
 }

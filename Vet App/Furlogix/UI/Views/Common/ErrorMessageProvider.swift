@@ -8,5 +8,5 @@
 import Foundation
 
 protocol ErrorMessageProvider: ObservableObject {
-    var errorMessage: String? { get set }
+  var errorMessage: String? { get set }
 }

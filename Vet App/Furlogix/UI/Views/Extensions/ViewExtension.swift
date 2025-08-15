@@ -8,7 +8,7 @@
 import SwiftUI
 
 extension View {
-    func withErrorAlerts(viewModels: [any ErrorMessageProvider]) -> some View {
-        self.modifier(ErrorAlertModifier(viewModels: viewModels))
-    }
+  func withErrorAlerts(viewModels: [any ErrorMessageProvider]) -> some View {
+    self.modifier(ErrorAlertModifier(viewModels: viewModels))
+  }
 }
